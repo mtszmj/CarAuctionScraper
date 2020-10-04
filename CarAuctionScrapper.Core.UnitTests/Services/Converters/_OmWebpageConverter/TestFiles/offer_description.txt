@@ -1,0 +1,9 @@
+﻿<div class="offer-description" id="description">
+    <h3 class="offer-description__title">Opis</h3>
+    <div class="offer-description__description" data-read-more data-text="Pokaż pełny opis" data-hide-text="Ukryj opis">
+        Opis szczegółowy<br />
+        <br />
+        linia niżej<br />
+        linia niżej 2<br />
+    </div>
+</div>

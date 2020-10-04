@@ -1,0 +1,264 @@
+﻿<views:MvxWpfView 
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"                        
+             x:Class="CarAuctionScrapper.WPF.Views.MainOffersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:CarAuctionScrapper.Core.ViewModels;assembly=CarAuctionScrapper.Core" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:CarAuctionScrapper.WPF.Views"
+             xmlns:converters="clr-namespace:CarAuctionScrapper.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+    >
+    <views:MvxWpfView.Resources>
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+    </views:MvxWpfView.Resources>
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto">-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0">
+        <TextBlock Text="Link do oferty:"/>
+        <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Command="{Binding GetDataFromWebpageCommand}" Content="Get offer"/>
+        <!--<DataGrid ItemsSource="{Binding Offers}"/>-->
+        <!--<ItemsControl ItemsSource="{Binding Offers}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:OfferView DataContext="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>-->
+
+            <ItemsControl ItemsSource="{Binding CommonFeatures}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#880033cc" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
+                            <Label Content="{Binding}" Foreground="White" FontSize="10" FontWeight="Medium"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Offers}" SelectedItem="{Binding SelectedOffer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"
+                      VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+
+                    <DataGridTemplateColumn Header="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageThumbnail}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Cena" SortMemberPath="Offer.Price">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Offer.Price}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Oferta&#x0a;od" SortMemberPath="[Oferta od]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Oferta od]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Marka" SortMemberPath="[Marka pojazdu]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Marka pojazdu]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Model" SortMemberPath="[Model pojazdu]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Model pojazdu]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Rocznik" SortMemberPath="[Rok produkcji]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Rok produkcji]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Przebieg" SortMemberPath="[Przebieg]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Przebieg]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Pojemność" SortMemberPath="[Pojemność skokowa]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Pojemność skokowa]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Moc" SortMemberPath="[Moc]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Moc]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Kraj" SortMemberPath="[Kraj pochodzenia]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Kraj pochodzenia]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Pierwszy&#x0a;właściciel" SortMemberPath="[Pierwszy właściciel]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Pierwszy właściciel]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn Header="Bezwy-&#x0a;padkowy" SortMemberPath="[Bezwypadkowy]">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding [Bezwypadkowy]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--<DataGridTemplateColumn Header="Szczegóły">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                    <DataGrid AutoGenerateColumns="False" 
+                                          HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Top" 
+                                              ItemsSource="{Binding Offer.Details}"
+                                             
+                                              >
+                                        <DataGrid.Columns >
+                                            <DataGridTextColumn Binding="{Binding Path=Key}" MinWidth="50" FontWeight="SemiBold"/>
+                                            <DataGridTextColumn Binding="{Binding Path=Value}" MinWidth="50" FontWeight="Normal"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+
+                    <DataGridTemplateColumn Header="Cechy" MaxWidth="300">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding DistinctFeatures}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                        <Border Background="{Binding Path=., Converter={StaticResource StringToBrushConverter}}" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
+                                            <Label Content="{Binding}" Foreground="#c0000000"  FontSize="10" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Opis" MaxWidth="300">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ShortDescription}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Odległość" SortMemberPath="Distance">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Distance}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Link">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center">
+                                    <Hyperlink NavigateUri="{Binding Offer.Url}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="RequestNavigate">
+                                                <i:InvokeCommandAction Command="{Binding NavigateToUrlCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock Text="www" TextWrapping="Wrap"/>
+                                    </Hyperlink>
+                                    <TextBlock.ToolTip>
+                                        <TextBlock Text="{Binding Offer.Url}"/>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Szczegóły" SortMemberPath="Distance">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Otwórz" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWpfView}}, Path= DataContext.NavigateToOfferViewCommand}"/>
+                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
+            </DataGrid>
+    </Grid>
+    <!--</ScrollViewer>-->
+</views:MvxWpfView>

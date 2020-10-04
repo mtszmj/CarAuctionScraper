@@ -1,0 +1,6 @@
+﻿<div class="map-box">
+    <input type="hidden"
+        data-map-lat="1.23456789"
+        data-map-lon="9.10111213"
+    />
+</div>

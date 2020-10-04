@@ -1,0 +1,20 @@
+﻿<div class="om-offer-photos om-offer-photos-slick">
+    <div class="photo-item">
+        <img
+            class="bigImage"
+            data-nr="0"
+            data-tracking="gallery_open"
+            data-lazy="https://xyz.unit.test.com/v1/files/qwerty11/image;s=148x110"                                        
+            alt="AEIOUY - 1"
+        />
+    </div>
+    <div class="photo-item">
+        <img
+            class="bigImage"
+            data-nr="1"
+            data-tracking="gallery_open"
+            data-lazy="https://xyz.unit.test.com/v1/files/qwerty22/image;s=148x110"                                        
+            alt="AEIOUY - 2"
+        />
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿<div class="offer-features">
+	<h4 class="offer-features__title">Wyposażenie</h4>
+	<div class="offer-features__row" data-read-more data-text="Pokaż więcej" data-hide-text="Ukryj wyposażenie">
+		<ul class="offer-features__list">
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>ABS                        
+            </li>
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>Elektryczne szyby przednie                        
+            </li>
+        </ul>
+		<ul class="offer-features__list">
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>CD                        
+            </li>
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>Elektrycznie ustawiane lusterka                        
+            </li>
+        </ul>
+	</div>
+</div>

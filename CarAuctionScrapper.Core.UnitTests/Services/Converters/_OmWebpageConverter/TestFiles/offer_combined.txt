@@ -1,0 +1,100 @@
+﻿<div class="offer-description" id="description">
+    <h3 class="offer-description__title">Opis</h3>
+    <div class="offer-description__description" data-read-more data-text="Pokaż pełny opis" data-hide-text="Ukryj opis">
+        Opis szczegółowy<br />
+        <br />
+        linia niżej<br />
+        linia niżej 2<br />
+    </div>
+</div>
+
+<div class="offer-features">
+	<h4 class="offer-features__title">Wyposażenie</h4>
+	<div class="offer-features__row" data-read-more data-text="Pokaż więcej" data-hide-text="Ukryj wyposażenie">
+		<ul class="offer-features__list">
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>ABS                        
+            </li>
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>Elektryczne szyby przednie                        
+            </li>
+        </ul>
+		<ul class="offer-features__list">
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>CD                        
+            </li>
+            <li class="offer-features__item">
+                <span class="offer-features__icon icon-tick"></span>Elektrycznie ustawiane lusterka                        
+            </li>
+        </ul>
+	</div>
+</div>
+
+<div class="om-offer-photos om-offer-photos-slick">
+    <div class="photo-item">
+        <img
+            class="bigImage"
+            data-nr="0"
+            data-tracking="gallery_open"
+            data-lazy="https://xyz.unit.test.com/v1/files/qwerty11/image;s=148x110"                                        
+            alt="AEIOUY - 1"
+        />
+    </div>
+    <div class="photo-item">
+        <img
+            class="bigImage"
+            data-nr="1"
+            data-tracking="gallery_open"
+            data-lazy="https://xyz.unit.test.com/v1/files/qwerty22/image;s=148x110"                                        
+            alt="AEIOUY - 2"
+        />
+    </div>
+</div>
+
+<div class="offer-photos-thumbs slider-nav">
+	<li class="offer-photos-thumbs__item">
+		<img src="https://xyz.unit.test.com/v1/files/qwerty1/image;s=148x110" alt="aeiouy - 1"/>
+	</li>
+	<li class="offer-photos-thumbs__item">
+		<img src="https://xyz.unit.test.com/v1/files/qwerty2/image;s=148x110" alt="aeiouy - 2"/>
+	</li>
+</div>
+
+<div class="map-box">
+    <input type="hidden"
+        data-map-lat="1.23456789"
+        data-map-lon="9.10111213"
+    />
+</div>
+
+<div class="parametersArea">
+    <h4 class="offer-parameters__title">Szczegóły</h4>
+    <div class="offer-params with-vin" data-read-more data-text="Pokaż wszystkie dane techniczne" data-hide-text="Ukryj dane techniczne" id="parameters">
+        <ul class="offer-params__list">
+            <li class="offer-params__item">
+                <span class="offer-params__label">Oferta od</span>
+                <div class="offer-params__value">
+                    <a class="offer-params__link" href="https://www.abcdefghijkl.pl" title="Firmy">
+                        Firmy                
+                    </a>
+                </div>
+            </li>                                                                                                                        
+            <li class="offer-params__item">
+                <span class="offer-params__label">Kategoria</span>
+                    <div class="offer-params__value">
+                        <a class="offer-params__link" href="https://www.abcdefghijkl.pl/" title="Osobowe">
+                            Osobowe                
+                        </a>
+                    </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="offer-price" data-price="49 900">
+    <span class="offer-price__number">49 900    
+    <span class="offer-price__currency">PLN
+    </span></span>
+    <span class="offer-price__details">Faktura VAT</span>
+
+</div>

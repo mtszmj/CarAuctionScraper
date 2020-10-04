@@ -1,0 +1,8 @@
+﻿<div class="offer-photos-thumbs slider-nav">
+	<li class="offer-photos-thumbs__item">
+		<img src="https://xyz.unit.test.com/v1/files/qwerty1/image;s=148x110" alt="aeiouy - 1"/>
+	</li>
+	<li class="offer-photos-thumbs__item">
+		<img src="https://xyz.unit.test.com/v1/files/qwerty2/image;s=148x110" alt="aeiouy - 2"/>
+	</li>
+</div>

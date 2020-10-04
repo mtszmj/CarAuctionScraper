@@ -1,0 +1,23 @@
+﻿<div class="parametersArea">
+    <h4 class="offer-parameters__title">Szczegóły</h4>
+    <div class="offer-params with-vin" data-read-more data-text="Pokaż wszystkie dane techniczne" data-hide-text="Ukryj dane techniczne" id="parameters">
+        <ul class="offer-params__list">
+            <li class="offer-params__item">
+                <span class="offer-params__label">Oferta od</span>
+                <div class="offer-params__value">
+                    <a class="offer-params__link" href="https://www.abcdefghijkl.pl" title="Firmy">
+                        Firmy                
+                    </a>
+                </div>
+            </li>                                                                                                                        
+            <li class="offer-params__item">
+                <span class="offer-params__label">Kategoria</span>
+                    <div class="offer-params__value">
+                        <a class="offer-params__link" href="https://www.abcdefghijkl.pl/" title="Osobowe">
+                            Osobowe                
+                        </a>
+                    </div>
+            </li>
+        </ul>
+    </div>
+</div>

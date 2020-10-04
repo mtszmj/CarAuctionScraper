@@ -1,0 +1,7 @@
+﻿<div class="offer-price" data-price="49 900">
+    <span class="offer-price__number">49 900    
+    <span class="offer-price__currency">PLN
+    </span></span>
+    <span class="offer-price__details">Faktura VAT</span>
+
+</div>
