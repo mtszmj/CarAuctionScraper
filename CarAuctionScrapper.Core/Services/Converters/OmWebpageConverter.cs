@@ -75,11 +75,11 @@ namespace CarAuctionScrapper.Core.Services.Converters
             return null;
         }
 
-        internal List<ImageUrl> ParseImageThumbnails(HtmlDocument doc)
+        internal List<ThumbnailImageUrl> ParseImageThumbnails(HtmlDocument doc)
         {
             var links = doc.DocumentNode.QuerySelectorAll(".offer-photos-thumbs img");
 
-            var images = new List<ImageUrl>();
+            var images = new List<ThumbnailImageUrl>();
             foreach (var link in links)
             {
                 var src = link.Attributes["src"]?.Value;
@@ -93,11 +93,11 @@ namespace CarAuctionScrapper.Core.Services.Converters
             return images;
         }
 
-        internal List<ImageUrl> ParseImages(HtmlDocument doc)
+        internal List<FullImageUrl> ParseImages(HtmlDocument doc)
         {
             var links = doc.DocumentNode.QuerySelectorAll(".om-offer-photos img");
 
-            var images = new List<ImageUrl>();
+            var images = new List<FullImageUrl>();
             foreach (var link in links)
             {
                 var src = link.Attributes["data-lazy"]?.Value;
@@ -124,7 +124,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
             var lngOk = double.TryParse(lng, out var longitude);
 
             if (latOk && lngOk)
-                return new Location { Latitude = latitude, Longitude = longitude };
+                return new Location(latitude, longitude);
 
             return null;
         }

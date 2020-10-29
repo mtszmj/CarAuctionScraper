@@ -67,7 +67,7 @@ namespace CarAuctionScrapper.Core.ViewModels
             }
         }
 
-        private Location HomeLocation = new Location { Latitude = 50.297552, Longitude = 18.954473 };
+        private Location HomeLocation = new Location ( 50.297552, 18.954473 );
         private List<string> _commonFeatures;
 
         public double? Distance => Offer?.Location?.Distance(HomeLocation);
