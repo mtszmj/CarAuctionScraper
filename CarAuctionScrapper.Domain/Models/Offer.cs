@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CarAuctionScrapper.Domain.Values;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarAuctionScrapper.Core.Models
+namespace CarAuctionScrapper.Domain.Models
 {
     public class Offer
     {
@@ -11,8 +12,8 @@ namespace CarAuctionScrapper.Core.Models
         public List<string> Features { get; set; }
         public string Description { get; set; }
         public decimal? Price { get; set; }
-        public List<ImageUrl> ImageThumbnails { get; set; }
-        public List<ImageUrl> Images { get; set; }
+        public List<ThumbnailImageUrl> ImageThumbnails { get; set; }
+        public List<FullImageUrl> Images { get; set; }
         public Location Location { get; set; }
     }
 }

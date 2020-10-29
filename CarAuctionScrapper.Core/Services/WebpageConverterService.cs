@@ -1,4 +1,4 @@
-﻿using CarAuctionScrapper.Core.Models;
+﻿using CarAuctionScrapper.Domain.Models;
 using CarAuctionScrapper.Core.Services.Converters;
 using HtmlAgilityPack;
 

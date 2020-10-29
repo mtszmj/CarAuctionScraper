@@ -1,4 +1,4 @@
-﻿using CarAuctionScrapper.Core.Models;
+﻿using CarAuctionScrapper.Domain.Models;
 
 namespace CarAuctionScrapper.Core.Services
 {

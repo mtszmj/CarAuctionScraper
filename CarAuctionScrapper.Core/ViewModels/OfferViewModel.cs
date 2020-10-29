@@ -1,16 +1,14 @@
 ﻿using CarAuctionScrapper.Core.DI;
-using CarAuctionScrapper.Core.Models;
+using CarAuctionScrapper.Domain.Models;
 using CarAuctionScrapper.Core.Services;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using CarAuctionScrapper.Domain.Values;
 
 namespace CarAuctionScrapper.Core.ViewModels
 {

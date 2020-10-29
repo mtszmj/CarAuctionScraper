@@ -1,13 +1,25 @@
-﻿using System;
+﻿using CarAuctionScrapper.Domain.Base;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CarAuctionScrapper.Core.Models
+namespace CarAuctionScrapper.Domain.Values
 {
-    public class Location
+    public class Location : ValueObject
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        protected Location() { }
+        public Location(double latitude, double longitude) 
+        {
+            if (latitude > 90 || latitude < -90)
+                throw new ArgumentException("Latitude must be in [-90,90]", nameof(latitude));
+            if (longitude > 180 || longitude < -180)
+                throw new ArgumentException("Latitude must be in [-180,180]", nameof(longitude));
+
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
+        public double Latitude { get; }
+        public double Longitude { get; }
 
         public double Distance(Location other)
         {
@@ -33,6 +45,12 @@ namespace CarAuctionScrapper.Core.Models
             {
                 return degrees * Math.PI / 180.0;
             }
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Latitude;
+            yield return Longitude;
         }
     }
 }

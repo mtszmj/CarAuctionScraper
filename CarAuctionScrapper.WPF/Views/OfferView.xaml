@@ -7,8 +7,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarAuctionScrapper.WPF.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:converters="clr-namespace:CarAuctionScrapper.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <views:MvxWpfView.Resources>
+        <converters:OfferToChartSeriesConverter x:Key="OfferToChartSeriesConverter"/>
+        <converters:OfferToDateTimeFormatterConverter x:Key="OfferToDateTimeFormatterConverter"/>
+        <converters:OfferToCurrencyFormatterConverter x:Key="OfferToCurrencyFormatterConverter"/>
+    </views:MvxWpfView.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -126,6 +133,16 @@
                 </Border>
                 <Border  >
                     <TextBlock Text="{Binding Offer.Description}" TextWrapping="Wrap"/>
+                </Border>
+                <Border Height="300">
+                    <lvc:CartesianChart Series="{Binding Offer, Converter={StaticResource OfferToChartSeriesConverter}}" LegendLocation="Right" >
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Data" LabelFormatter="{Binding Offer, Converter={StaticResource OfferToDateTimeFormatterConverter }}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Cena [zł]" LabelFormatter="{Binding Offer, Converter={StaticResource OfferToCurrencyFormatterConverter}}"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
                 </Border>
             </StackPanel>
 

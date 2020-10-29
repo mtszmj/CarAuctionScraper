@@ -247,7 +247,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Szczegóły" SortMemberPath="Distance">
+                <DataGridTemplateColumn Header="Szczegóły">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Otwórz" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWpfView}}, Path= DataContext.NavigateToOfferViewCommand}"/>

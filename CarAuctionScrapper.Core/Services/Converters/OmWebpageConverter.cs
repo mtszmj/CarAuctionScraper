@@ -1,10 +1,10 @@
-﻿using CarAuctionScrapper.Core.Models;
+﻿using CarAuctionScrapper.Domain.Models;
+using CarAuctionScrapper.Domain.Values;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CarAuctionScrapper.Core.Services.Converters
 {
@@ -87,7 +87,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
                 if (src is null || alt is null)
                     continue;
 
-                images.Add(new ImageUrl { Src = src, Alt = alt });
+                images.Add(new ThumbnailImageUrl(src, alt));
             }
 
             return images;
@@ -105,7 +105,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
                 if (src is null || alt is null)
                     continue;
 
-                images.Add(new ImageUrl { Src = src, Alt = alt });
+                images.Add(new FullImageUrl(src, alt));
             }
 
             return images;

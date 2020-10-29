@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarAuctionScrapper.Core\CarAuctionScrapper.Core.csproj" />
+    <ProjectReference Include="..\CarAuctionScrapper.Domain\CarAuctionScrapper.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
