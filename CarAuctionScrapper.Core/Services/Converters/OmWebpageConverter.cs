@@ -17,8 +17,8 @@ namespace CarAuctionScrapper.Core.Services.Converters
 
             return new Offer(
                 url,
-                ParseDetails(doc).Select(kv => new Detail(kv.Key, kv.Value)).ToList(),
-                ParseFeatures(doc).Select(f => new Feature(f)).ToList(),
+                ParseDetails(doc),
+                ParseFeatures(doc),
                 ParseDescription(doc),
                 ParsePrice(doc),
                 ParseImageThumbnails(doc),
@@ -27,15 +27,13 @@ namespace CarAuctionScrapper.Core.Services.Converters
             );
         }
 
-        internal Dictionary<string, string> ParseDetails(HtmlDocument doc)
+        internal List<Detail> ParseDetails(HtmlDocument doc)
         {
             var details = new List<Detail>();
 
             var parameters = doc.DocumentNode.QuerySelector(".parametersArea");
             if (parameters is null)
-                return details
-                    .ToDictionary(x => x.Category, x => x.Value)
-                    ;
+                return details;
 
             var listItems = parameters.QuerySelectorAll("li.offer-params__item");
             foreach (var item in listItems)
@@ -52,13 +50,11 @@ namespace CarAuctionScrapper.Core.Services.Converters
                 details.Add(new Detail(label, value));
             }
 
-            return details
-                .ToDictionary(x => x.Category, x => x.Value)
-                ;
+            return details;
         }
 
 
-        internal List<string> ParseFeatures(HtmlDocument doc)
+        internal List<Feature> ParseFeatures(HtmlDocument doc)
         {
             var features = doc.DocumentNode.QuerySelectorAll(".offer-features .offer-features__row ul li");
             return features.Select(x => x.InnerText.Trim())
@@ -67,8 +63,6 @@ namespace CarAuctionScrapper.Core.Services.Converters
                            .OrderBy(x => x)
                            .Select(x => new Feature(x))
                            .ToList()
-
-                           .Select(test => test.Name).ToList()
                            ;
 
 

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 
 namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConverter
 {
@@ -14,10 +15,10 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
             var result = Converter.ParseFeatures(doc);
 
             result.Should().HaveCount(4);
-            result.Should().Contain("ABS");
-            result.Should().Contain("Elektryczne szyby przednie");
-            result.Should().Contain("CD");
-            result.Should().Contain("Elektrycznie ustawiane lusterka");
+            result.Select(x => x.Name).Should().Contain("ABS");
+            result.Select(x => x.Name).Should().Contain("Elektryczne szyby przednie");
+            result.Select(x => x.Name).Should().Contain("CD");
+            result.Select(x => x.Name).Should().Contain("Elektrycznie ustawiane lusterka");
         }
 
         [Test]

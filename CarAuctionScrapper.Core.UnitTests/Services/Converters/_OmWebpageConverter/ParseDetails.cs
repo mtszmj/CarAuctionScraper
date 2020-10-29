@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 
 namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConverter
 {
@@ -13,9 +14,9 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
 
             var result = Converter.ParseDetails(doc);
 
-            result.Should().ContainKeys("Oferta od", "Kategoria");
-            result["Oferta od"].Should().Be("Firmy");
-            result["Kategoria"].Should().Be("Osobowe");
+            result.Select(x => x.Category).Should().Contain("Oferta od", "Kategoria");
+            result.First(x => x.Category == "Oferta od").Value.Should().Be("Firmy");
+            result.First(x => x.Category == "Kategoria").Value.Should().Be("Osobowe");
         }
 
         [Test]
