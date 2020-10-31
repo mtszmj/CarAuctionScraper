@@ -20,7 +20,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
                 ParseDetails(doc),
                 ParseFeatures(doc),
                 ParseDescription(doc),
-                ParsePrice(doc),
+                new Price(ParsePrice(doc) ?? 0, DateTimeOffset.Now),
                 ParseImageThumbnails(doc),
                 ParseImages(doc),
                 ParseLocation(doc)
@@ -64,8 +64,6 @@ namespace CarAuctionScrapper.Core.Services.Converters
                            .Select(x => new Feature(x))
                            .ToList()
                            ;
-
-
         }
 
 

@@ -86,7 +86,7 @@
                     <DataGridTemplateColumn Header="Cena" SortMemberPath="Offer.Price">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Offer.Price}"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Offer.CurrentPrice.Value}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

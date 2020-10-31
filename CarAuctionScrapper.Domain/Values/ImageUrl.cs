@@ -6,7 +6,7 @@ namespace CarAuctionScrapper.Domain.Values
 {
     public abstract class ImageUrl : ValueObject
     {
-        public ImageUrl() { }
+        protected ImageUrl() { }
 
         public ImageUrl(string src, string alt)
         {

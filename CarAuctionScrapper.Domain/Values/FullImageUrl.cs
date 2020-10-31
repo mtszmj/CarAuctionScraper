@@ -2,7 +2,8 @@
 {
     public class FullImageUrl : ImageUrl
     {
-        public FullImageUrl() { }
+        protected FullImageUrl() { }
+
         public FullImageUrl(string src, string alt) : base(src, alt) { }
     }
 }

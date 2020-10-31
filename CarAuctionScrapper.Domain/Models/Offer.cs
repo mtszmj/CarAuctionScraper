@@ -2,18 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace CarAuctionScrapper.Domain.Models
 {
     public class Offer
     {
-        public Offer() { }
+        protected Offer() { }
 
         public Offer(string url, IList<Detail> details, 
-            IList<Feature> features, string description, decimal? price, 
+            IList<Feature> features, string description, Price price,
             IList<ThumbnailImageUrl> thumbnails, IList<FullImageUrl> images, 
             Location location)
         {
@@ -36,20 +33,30 @@ namespace CarAuctionScrapper.Domain.Models
             Details = details;
             Features = features;
             Description = description;
-            Price = price;
             ImageThumbnails = thumbnails;
             Images = images;
             Location = location;
-        }
 
+            Prices = new List<Price>();
+            AddPrice(price);
+        }
 
         public string Url { get; set; }
         public IList<Detail> Details { get; set; }
         public IList<Feature> Features { get; set; }
         public string Description { get; set; }
-        public decimal? Price { get; set; }
+        public IList<Price> Prices { get; set; }
+        public Price CurrentPrice => Prices.OrderBy(x => x, Values.Price.ByDateComparer()).LastOrDefault();
         public IList<ThumbnailImageUrl> ImageThumbnails { get; set; }
         public IList<FullImageUrl> Images { get; set; }
         public Location Location { get; set; }
+
+        public void AddPrice(Price price)
+        {
+            if (price is null || price.Value <= 0 || Prices.Contains(price))
+                return; 
+            
+            Prices.Add(price);
+        }
     }
 }

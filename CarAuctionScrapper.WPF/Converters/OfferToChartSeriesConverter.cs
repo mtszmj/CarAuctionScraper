@@ -4,6 +4,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace CarAuctionScrapper.WPF.Converters
@@ -19,14 +20,9 @@ namespace CarAuctionScrapper.WPF.Converters
                     new LineSeries
                     {
                         Title = "Cena",
-                        Values = new ChartValues<DateTimePoint>
-                        {
-                            new DateTimePoint(DateTime.Today - TimeSpan.FromDays(30), (double)offer.Price.Value),
-                            new DateTimePoint(DateTime.Today - TimeSpan.FromDays(10), (double)offer.Price.Value),
-                            new DateTimePoint(DateTime.Today - TimeSpan.FromDays(7), (double)offer.Price.Value * 1.1),
-                            new DateTimePoint(DateTime.Today - TimeSpan.FromDays(1), (double)offer.Price.Value * 0.9),
-                            new DateTimePoint(DateTime.Today - TimeSpan.FromDays(0), (double)offer.Price.Value)
-                        },
+                        Values = new ChartValues<DateTimePoint>(
+                            offer.Prices.Select(x => new DateTimePoint(x.Date.LocalDateTime, (double)x.Value))
+                        ),
                         LineSmoothness=0
                     }
                 };

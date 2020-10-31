@@ -15,6 +15,7 @@
         <converters:OfferToChartSeriesConverter x:Key="OfferToChartSeriesConverter"/>
         <converters:OfferToDateTimeFormatterConverter x:Key="OfferToDateTimeFormatterConverter"/>
         <converters:OfferToCurrencyFormatterConverter x:Key="OfferToCurrencyFormatterConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </views:MvxWpfView.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -29,7 +30,7 @@
             <TextBlock Text="(" Margin="5 5 0 5" FontSize="20"/>
             <TextBlock Text="{Binding [Rok produkcji]}" Margin="0 5" FontSize="20"/>
             <TextBlock Text=") - " Margin="0 5" FontSize="20"/>
-            <TextBlock Text="{Binding Offer.Price}" Margin="0 5" FontSize="20"/>
+            <TextBlock Text="{Binding Offer.CurrentPrice.Value}" Margin="0 5" FontSize="20"/>
             <TextBlock Text="zł - " Margin="0 5 5 5" FontSize="20"/>
             <TextBlock Margin="0 5">
                 <Hyperlink NavigateUri="{Binding Offer.Url}">
@@ -134,10 +135,10 @@
                 <Border  >
                     <TextBlock Text="{Binding Offer.Description}" TextWrapping="Wrap"/>
                 </Border>
-                <Border Height="300">
+                <Border Height="300" Visibility="{Binding ShowPriceGraph, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <lvc:CartesianChart Series="{Binding Offer, Converter={StaticResource OfferToChartSeriesConverter}}" LegendLocation="Right" >
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Data" LabelFormatter="{Binding Offer, Converter={StaticResource OfferToDateTimeFormatterConverter }}"/>
+                            <lvc:Axis Title="Data" LabelFormatter="{Binding Offer, Converter={StaticResource OfferToDateTimeFormatterConverter }}" />
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="Cena [zł]" LabelFormatter="{Binding Offer, Converter={StaticResource OfferToCurrencyFormatterConverter}}"/>

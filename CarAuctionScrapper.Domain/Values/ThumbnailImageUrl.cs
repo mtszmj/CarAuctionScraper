@@ -2,7 +2,8 @@
 {
     public class ThumbnailImageUrl : ImageUrl
     {
-        public ThumbnailImageUrl() { }
+        protected ThumbnailImageUrl() { }
+
         public ThumbnailImageUrl(string src, string alt) : base(src, alt) { }
     }
 }

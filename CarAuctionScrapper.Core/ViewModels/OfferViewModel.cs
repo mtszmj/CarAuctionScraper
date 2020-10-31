@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarAuctionScrapper.Domain.Values;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CarAuctionScrapper.Core.ViewModels
 {
@@ -100,6 +99,12 @@ namespace CarAuctionScrapper.Core.ViewModels
 
             ReturnViewModel = parameter.ReturnViewModel;
         }
+
+        public double MaxDateTime { get  {
+                return (DateTime.Today + TimeSpan.FromDays(1)).Ticks;
+            } }
+
+        public bool ShowPriceGraph => Offer.Prices.Count > 1;
 
         IMvxViewModel ReturnViewModel { get; set; }
     }

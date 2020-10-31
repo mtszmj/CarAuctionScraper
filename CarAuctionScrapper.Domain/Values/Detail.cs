@@ -8,6 +8,7 @@ namespace CarAuctionScrapper.Domain.Values
     public class Detail : ValueObject
     {
         protected Detail() { }
+
         public Detail(string category, string value) 
         {
             if (string.IsNullOrWhiteSpace(category))

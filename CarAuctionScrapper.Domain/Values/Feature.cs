@@ -8,6 +8,7 @@ namespace CarAuctionScrapper.Domain.Values
     public class Feature : ValueObject, IComparable<Feature>
     {
         protected Feature() { }
+
         public Feature(string name) 
         {
             if (string.IsNullOrWhiteSpace(name))

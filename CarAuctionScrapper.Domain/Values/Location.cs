@@ -7,6 +7,7 @@ namespace CarAuctionScrapper.Domain.Values
     public class Location : ValueObject
     {
         protected Location() { }
+
         public Location(double latitude, double longitude) 
         {
             if (latitude > 90 || latitude < -90)
