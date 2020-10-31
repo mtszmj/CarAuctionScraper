@@ -28,9 +28,7 @@ namespace CarAuctionScrapper.Core.Services
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            var price = new Price(OmConverter.ParsePrice(doc) ?? 0, DateTimeOffset.Now);
-
-            return price;
+            return OmConverter.ParsePrice(doc);
         }
     }
 }

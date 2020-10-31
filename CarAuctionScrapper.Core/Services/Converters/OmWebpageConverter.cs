@@ -20,7 +20,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
                 ParseDetails(doc),
                 ParseFeatures(doc),
                 ParseDescription(doc),
-                new Price(ParsePrice(doc) ?? 0, DateTimeOffset.Now),
+                ParsePrice(doc),
                 ParseImageThumbnails(doc),
                 ParseImages(doc),
                 ParseLocation(doc)
@@ -76,12 +76,12 @@ namespace CarAuctionScrapper.Core.Services.Converters
             return string.Join(Environment.NewLine, descriptionTextArray.Select(x => x.Trim()));
         }
 
-        internal decimal? ParsePrice(HtmlDocument doc)
+        internal Price ParsePrice(HtmlDocument doc)
         {
             var price = doc.DocumentNode.QuerySelector(".offer-price");
             var priceValue = price?.Attributes["data-price"]?.Value;
             if (decimal.TryParse(priceValue, out var res))
-                return res;
+                return new Price(res, DateTimeOffset.Now);
 
             return null;
         }

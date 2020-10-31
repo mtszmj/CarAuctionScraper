@@ -53,7 +53,7 @@ namespace CarAuctionScrapper.Domain.Models
 
         public void AddPrice(Price price)
         {
-            if (price is null || price.Value <= 0 || Prices.Contains(price))
+            if (price is null || price.Value < 0 || Prices.Contains(price))
                 return; 
             
             Prices.Add(price);
