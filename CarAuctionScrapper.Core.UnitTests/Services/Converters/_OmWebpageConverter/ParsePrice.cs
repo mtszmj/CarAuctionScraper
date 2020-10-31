@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using System;
 
 namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConverter
 {
@@ -14,6 +15,7 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
             var result = Converter.ParsePrice(doc);
 
             result.Value.Should().Be(49900);
+            result.Date.Should().Be(new DateTimeOffset(2020, 10, 9, 8, 7, 6, TimeSpan.FromHours(1)));
         }
 
         [Test]

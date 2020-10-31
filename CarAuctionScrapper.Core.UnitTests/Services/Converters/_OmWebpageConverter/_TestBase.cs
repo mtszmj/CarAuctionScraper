@@ -1,5 +1,8 @@
-﻿using CarAuctionScrapper.Core.Services.Converters;
+﻿using CarAuctionScrapper.Core.Services;
+using CarAuctionScrapper.Core.Services.Converters;
 using HtmlAgilityPack;
+using NSubstitute;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -7,7 +10,14 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
 {
     public class _TestBase
     {
-        protected OmWebpageConverter Converter { get; } = new OmWebpageConverter();
+        public _TestBase()
+        {
+            var dateTimeService = Substitute.For<IDateTime>();
+            dateTimeService.Now().Returns(new System.DateTimeOffset(2020, 10, 9, 8, 7, 6, TimeSpan.FromHours(1)));
+            Converter = new OmWebpageConverter(dateTimeService);
+        }
+
+        protected OmWebpageConverter Converter { get; }
 
         protected string ReadTestFile(string filename) => File.ReadAllText(GetPathToTestFile(filename));
 

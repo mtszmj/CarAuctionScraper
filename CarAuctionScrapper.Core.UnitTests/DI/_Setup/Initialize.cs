@@ -26,6 +26,7 @@ namespace CarAuctionScrapper.Core.UnitTests.DI._Setup
             ioc.Resolve<IWebpageReaderService>().Should().BeOfType<WebpageReaderService>();
             ioc.Resolve<IWebpageConverterService>().Should().BeOfType<WebpageConverterService>();
             ioc.Resolve<IWebpageService>().Should().BeOfType<WebpageService>();
+            ioc.Resolve<IDateTime>().Should().BeOfType<DateTimeService>();
 
             ioc.Resolve<IBrowserService>().Should().BeOfType<BrowserService>();
         }

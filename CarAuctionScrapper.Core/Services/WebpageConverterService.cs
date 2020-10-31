@@ -8,7 +8,12 @@ namespace CarAuctionScrapper.Core.Services
 {
     public class WebpageConverterService : IWebpageConverterService
     {
-        OmWebpageConverter OmConverter { get; } = new OmWebpageConverter();
+        public WebpageConverterService(IDateTime dateTimeService)
+        {
+            OmConverter = new OmWebpageConverter(dateTimeService);
+        }
+
+        OmWebpageConverter OmConverter { get; } 
 
         public Offer Convert(string html, string url)
         {

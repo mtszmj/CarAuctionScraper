@@ -12,8 +12,10 @@ namespace CarAuctionScrapper.Core.DI
             ioc.RegisterType<IWebpageReaderService, WebpageReaderService>();
             ioc.RegisterType<IWebpageConverterService, WebpageConverterService>();
             ioc.RegisterType<IWebpageService, WebpageService>();
-            
+            ioc.RegisterType<IDateTime, DateTimeService>();
+
             ioc.RegisterSingleton<IBrowserService>(new BrowserService());
+            
         }
     }
 }

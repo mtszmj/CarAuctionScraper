@@ -10,6 +10,13 @@ namespace CarAuctionScrapper.Core.Services.Converters
 {
     public class OmWebpageConverter
     {
+        private readonly IDateTime _dateTimeService;
+
+        public OmWebpageConverter(IDateTime dateTimeService)
+        {
+            _dateTimeService = dateTimeService;
+        }
+
         public Offer Convert(string html, string url)
         {
             var doc = new HtmlDocument();
@@ -81,7 +88,7 @@ namespace CarAuctionScrapper.Core.Services.Converters
             var price = doc.DocumentNode.QuerySelector(".offer-price");
             var priceValue = price?.Attributes["data-price"]?.Value;
             if (decimal.TryParse(priceValue, out var res))
-                return new Price(res, DateTimeOffset.Now);
+                return new Price(res, _dateTimeService.Now());
 
             return null;
         }
