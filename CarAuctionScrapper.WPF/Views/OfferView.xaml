@@ -102,7 +102,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Path=Key}" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Column="0" Text="{Binding Path=Category}" FontWeight="SemiBold"/>
                                         <TextBlock Grid.Column="1" Text="{Binding Path=Value}"/>
                                     </Grid>
                                 </DataTemplate>

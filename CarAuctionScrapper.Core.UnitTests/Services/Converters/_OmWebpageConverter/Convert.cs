@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConverter
@@ -34,9 +35,9 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
             result.Should().NotBeNull();
             result.Description.Should().Be("Opis szczegółowy\r\n\r\nlinia niżej\r\nlinia niżej 2");
 
-            result.Details.Should().ContainKeys("Oferta od", "Kategoria");
-            result.Details["Oferta od"].Should().Be("Firmy");
-            result.Details["Kategoria"].Should().Be("Osobowe");
+            result.Details.Select(x => x.Category).Should().Contain("Oferta od", "Kategoria");
+            result.Details.FirstOrDefault(x => x.Category == "Oferta od")?.Value.Should().Be("Firmy");
+            result.Details.FirstOrDefault(x => x.Category == "Kategoria")?.Value.Should().Be("Osobowe");
 
             result.Features.Should().HaveCount(4);
             result.Features.Should().Contain("ABS");

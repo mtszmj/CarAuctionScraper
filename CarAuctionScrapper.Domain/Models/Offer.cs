@@ -33,7 +33,7 @@ namespace CarAuctionScrapper.Domain.Models
                 throw new ArgumentException("Location cannot be null", nameof(location));
 
             Url = url;
-            Details = details.ToDictionary(x => x.Category, x => x.Value);
+            Details = details;
             Features = features.Select(x => x.Name).ToList();
             Description = description;
             Price = price;
@@ -44,7 +44,7 @@ namespace CarAuctionScrapper.Domain.Models
 
 
         public string Url { get; set; }
-        public IDictionary<string, string> Details { get; set; }
+        public IList<Detail> Details { get; set; }
         public IList<string> Features { get; set; }
         public string Description { get; set; }
         public decimal? Price { get; set; }

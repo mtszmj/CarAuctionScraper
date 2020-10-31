@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarAuctionScrapper.Domain.Values;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CarAuctionScrapper.Core.ViewModels
 {
@@ -38,7 +39,7 @@ namespace CarAuctionScrapper.Core.ViewModels
             get
             {
                 string value = default;
-                return Offer?.Details.TryGetValue(detail, out value) == true ? value : default;
+                return Offer?.Details.FirstOrDefault(x => x.Category == detail)?.Value ?? value;
             }
         }
 
