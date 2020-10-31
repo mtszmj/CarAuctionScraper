@@ -13,7 +13,7 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
 
             var result = Converter.ParsePrice(doc);
 
-            result.Should().Be(49900);
+            result.Value.Should().Be(49900);
         }
 
         [Test]
