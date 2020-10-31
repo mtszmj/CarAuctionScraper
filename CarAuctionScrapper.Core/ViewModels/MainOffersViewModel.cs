@@ -26,6 +26,7 @@ namespace CarAuctionScrapper.Core.ViewModels
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
             NavigateToOfferViewCommand = new MvxAsyncCommand(NavigateToOfferView);
+            UpdatePricesCommand = new MvxAsyncCommand(UpdatePrices, CanUpdatePrices);
         }
 
         private MvxObservableCollection<OfferViewModel> _offers;
@@ -61,6 +62,7 @@ namespace CarAuctionScrapper.Core.ViewModels
         }
 
         public IMvxAsyncCommand GetDataFromWebpageCommand { get; private set; }
+        public IMvxAsyncCommand UpdatePricesCommand { get; private set; }
         public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
 
         private async Task GetDataFromWebpage()
@@ -101,6 +103,7 @@ namespace CarAuctionScrapper.Core.ViewModels
                 }
 
                 await RaisePropertyChanged(() => CommonFeatures);
+                UpdatePricesCommand?.RaiseCanExecuteChanged();
             }
         }
 
@@ -110,11 +113,31 @@ namespace CarAuctionScrapper.Core.ViewModels
                 && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
         }
 
+        private async Task UpdatePrices()
+        {
+            foreach(var offerVm in Offers)
+            {
+                try
+                {
+                    var html = await _webpageService.ReaderService.ReadWebpage(offerVm.Offer.Url);
+                    var price = _webpageService.ConverterService.ConvertPrice(html);
+                    offerVm.Offer.AddPrice(price);
+                }
+                catch(Exception ex)
+                {
+                    continue; //TODO
+                }
+            }
+        }
+
+        private bool CanUpdatePrices()
+        {
+            return Offers.Count > 0;
+        }
+
         private async Task NavigateToOfferView()
         {
             await _navigationService.Navigate(SelectedOffer, new OfferViewNavigationArgs { ReturnViewModel = this });
         }
-
-
     }
 }

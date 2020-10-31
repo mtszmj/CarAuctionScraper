@@ -74,7 +74,7 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
             result.Location.Latitude.Should().Be(1.23456789);
             result.Location.Longitude.Should().Be(9.10111213);
 
-            result.Price.Should().Be(49900);
+            result.CurrentPrice.Value.Should().Be(49900);
         }
     }
 }

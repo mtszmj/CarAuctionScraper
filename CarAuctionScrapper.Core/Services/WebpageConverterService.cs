@@ -1,6 +1,8 @@
 ﻿using CarAuctionScrapper.Domain.Models;
 using CarAuctionScrapper.Core.Services.Converters;
 using HtmlAgilityPack;
+using CarAuctionScrapper.Domain.Values;
+using System;
 
 namespace CarAuctionScrapper.Core.Services
 {
@@ -16,6 +18,19 @@ namespace CarAuctionScrapper.Core.Services
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
             return OmConverter.Convert(html, url);
+        }
+
+        public Price ConvertPrice(string html)
+        {
+            if (html is null)
+                return null;
+
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            var price = new Price(OmConverter.ParsePrice(doc) ?? 0, DateTimeOffset.Now);
+
+            return price;
         }
     }
 }

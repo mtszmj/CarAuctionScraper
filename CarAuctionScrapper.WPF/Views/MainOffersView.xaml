@@ -25,7 +25,8 @@
         <TextBlock Text="Link do oferty:"/>
         <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Command="{Binding GetDataFromWebpageCommand}" Content="Get offer"/>
-        <!--<DataGrid ItemsSource="{Binding Offers}"/>-->
+        <Button Command="{Binding UpdatePricesCommand}" Content="Update prices"/>
+            <!--<DataGrid ItemsSource="{Binding Offers}"/>-->
         <!--<ItemsControl ItemsSource="{Binding Offers}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
