@@ -1,10 +1,11 @@
 ﻿using CarAuctionScrapper.Domain.Base;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarAuctionScrapper.Domain.Values
 {
-    public class Feature : ValueObject
+    public class Feature : ValueObject, IComparable<Feature>
     {
         protected Feature() { }
         public Feature(string name) 
@@ -20,6 +21,11 @@ namespace CarAuctionScrapper.Domain.Values
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Name;
+        }
+
+        public int CompareTo([AllowNull] Feature other)
+        {
+            return Name.CompareTo(other.Name);
         }
     }
 }

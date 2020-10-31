@@ -40,10 +40,10 @@ namespace CarAuctionScrapper.Core.UnitTests.Services.Converters._OmWebpageConver
             result.Details.FirstOrDefault(x => x.Category == "Kategoria")?.Value.Should().Be("Osobowe");
 
             result.Features.Should().HaveCount(4);
-            result.Features.Should().Contain("ABS");
-            result.Features.Should().Contain("Elektryczne szyby przednie");
-            result.Features.Should().Contain("CD");
-            result.Features.Should().Contain("Elektrycznie ustawiane lusterka");
+            result.Features.Select(x => x.Name).Should().Contain("ABS");
+            result.Features.Select(x => x.Name).Should().Contain("Elektryczne szyby przednie");
+            result.Features.Select(x => x.Name).Should().Contain("CD");
+            result.Features.Select(x => x.Name).Should().Contain("Elektrycznie ustawiane lusterka");
 
             result.Images.Should().SatisfyRespectively(
                 first =>

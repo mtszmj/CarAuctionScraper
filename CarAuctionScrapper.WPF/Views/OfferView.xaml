@@ -120,7 +120,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="#880033cc" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
-                                            <Label Content="{Binding}" Foreground="White" FontSize="10" FontWeight="Medium"/>
+                                            <Label Content="{Binding Name}" Foreground="White" FontSize="10" FontWeight="Medium"/>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

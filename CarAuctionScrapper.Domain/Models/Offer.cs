@@ -34,7 +34,7 @@ namespace CarAuctionScrapper.Domain.Models
 
             Url = url;
             Details = details;
-            Features = features.Select(x => x.Name).ToList();
+            Features = features;
             Description = description;
             Price = price;
             ImageThumbnails = thumbnails;
@@ -45,7 +45,7 @@ namespace CarAuctionScrapper.Domain.Models
 
         public string Url { get; set; }
         public IList<Detail> Details { get; set; }
-        public IList<string> Features { get; set; }
+        public IList<Feature> Features { get; set; }
         public string Description { get; set; }
         public decimal? Price { get; set; }
         public IList<ThumbnailImageUrl> ImageThumbnails { get; set; }

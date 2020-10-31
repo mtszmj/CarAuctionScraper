@@ -1,5 +1,6 @@
 ﻿using CarAuctionScrapper.Core.DI;
 using CarAuctionScrapper.Core.Services;
+using CarAuctionScrapper.Domain.Values;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -49,13 +50,13 @@ namespace CarAuctionScrapper.Core.ViewModels
             set => SetProperty(ref _url, value, () => GetDataFromWebpageCommand?.RaiseCanExecuteChanged());
         }
 
-        public List<string> CommonFeatures
+        public List<Feature> CommonFeatures
         {
             get
             {
                 if (Offers.Count > 1)
                     return Offers[0].CommonFeatures;
-                else return Enumerable.Empty<string>().ToList();
+                else return Enumerable.Empty<Feature>().ToList();
             }
         }
 
@@ -79,7 +80,7 @@ namespace CarAuctionScrapper.Core.ViewModels
 
             if (Offers.Count > 1)
             {
-                var featuresCounters = new Dictionary<string, int>();
+                var featuresCounters = new Dictionary<Feature, int>();
                 foreach (var vm in Offers)
                 {
                     foreach (var feature in vm.Offer.Features)
@@ -90,10 +91,13 @@ namespace CarAuctionScrapper.Core.ViewModels
                     }    
                 }
 
-                var list = featuresCounters.Where(x => x.Value == Offers.Count).Select(x => x.Key).OrderBy(x => x).ToList();
+                var featuresContainedByAll = featuresCounters.Where(x => x.Value == Offers.Count)
+                                                             .Select(x => x.Key)
+                                                             .OrderBy(x => x)
+                                                             .ToList();
                 foreach (var vm in Offers)
                 {
-                    vm.CommonFeatures = list;
+                    vm.CommonFeatures = featuresContainedByAll;
                 }
 
                 await RaisePropertyChanged(() => CommonFeatures);

@@ -43,7 +43,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="#880033cc" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
-                            <Label Content="{Binding}" Foreground="White" FontSize="10" FontWeight="Medium"/>
+                            <Label Content="{Binding Name}" Foreground="White" FontSize="10" FontWeight="Medium"/>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -52,7 +52,7 @@
         </StackPanel>
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Offers}" SelectedItem="{Binding SelectedOffer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"
-                      VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+                      VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" VirtualizingPanel.ScrollUnit="Pixel">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -201,8 +201,8 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                        <Border Background="{Binding Path=., Converter={StaticResource StringToBrushConverter}}" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
-                                            <Label Content="{Binding}" Foreground="#c0000000"  FontSize="10" FontWeight="SemiBold"/>
+                                        <Border Background="{Binding Path=Name, Converter={StaticResource StringToBrushConverter}}" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
+                                            <Label Content="{Binding Name}" Foreground="#c0000000"  FontSize="10" FontWeight="SemiBold"/>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

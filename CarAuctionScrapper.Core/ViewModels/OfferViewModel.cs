@@ -43,13 +43,13 @@ namespace CarAuctionScrapper.Core.ViewModels
             }
         }
 
-        public List<string> CommonFeatures
+        public List<Feature> CommonFeatures
         {
             get => _commonFeatures;
             set => SetProperty(ref _commonFeatures, value, async () => await RaisePropertyChanged(nameof(DistinctFeatures)));
         }
 
-        public List<string> DistinctFeatures => Offer.Features.Except(CommonFeatures ?? Enumerable.Empty<string>()).ToList();
+        public List<Feature> DistinctFeatures => Offer.Features.Except(CommonFeatures ?? Enumerable.Empty<Feature>()).ToList();
 
         public Uri ImageThumbnail => Offer?.ImageThumbnails?.FirstOrDefault()?.Src is null
             ? null : new Uri(Offer?.ImageThumbnails?.FirstOrDefault()?.Src);
@@ -69,7 +69,7 @@ namespace CarAuctionScrapper.Core.ViewModels
         }
 
         private Location HomeLocation = new Location ( 50.297552, 18.954473 );
-        private List<string> _commonFeatures;
+        private List<Feature> _commonFeatures;
 
         public double? Distance => Offer?.Location?.Distance(HomeLocation);
 
