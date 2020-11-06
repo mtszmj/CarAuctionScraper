@@ -2,9 +2,6 @@
 using CarAuctionScrapper.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarAuctionScrapper.Core
 {
@@ -13,8 +10,10 @@ namespace CarAuctionScrapper.Core
         public override void Initialize()
         {
             var setup = new Setup();
-
             setup.Initialize(Mvx.IoCProvider);
+
+            var setupPersistence = new Persistence.Setup();
+            setupPersistence.Initialize(Mvx.IoCProvider);
 
             RegisterAppStart<MainOffersViewModel>();
         }

@@ -1,5 +1,6 @@
 ﻿using CarAuctionScrapper.Core.DI;
 using CarAuctionScrapper.Core.Services;
+using CarAuctionScrapper.Domain.Interfaces;
 using CarAuctionScrapper.Domain.Values;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -16,13 +17,17 @@ namespace CarAuctionScrapper.Core.ViewModels
         private readonly IWebpageService _webpageService;
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
+        private readonly ICasRepository _repository;
 
-        public MainOffersViewModel(IWebpageService webpageService, IBrowserService browserService, IMvxNavigationService navigationService)
+        public MainOffersViewModel(IWebpageService webpageService, IBrowserService browserService, IMvxNavigationService navigationService, ICasRepository repository)
         {
             _webpageService = webpageService;
             _browserService = browserService;
             _navigationService = navigationService;
+            _repository = repository;
             Offers = new MvxObservableCollection<OfferViewModel>();
+
+            _repository.Count();
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
             NavigateToOfferViewCommand = new MvxAsyncCommand(NavigateToOfferView);

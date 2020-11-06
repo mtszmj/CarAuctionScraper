@@ -1,20 +1,20 @@
 ﻿using CarAuctionScrapper.Domain.Values;
 using Microsoft.EntityFrameworkCore;
-using System;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarAuctionScrapper.Persistence.Configurations
 {
-    //public class ImageUrlConfiguration : IEntityTypeConfiguration<ImageUrl>
+    //public class DetailConfiguration : IEntityTypeConfiguration<Detail>
     //{
-    //    public void Configure(EntityTypeBuilder<ImageUrl> builder)
+    //    public void Configure(EntityTypeBuilder<Detail> builder)
     //    {
-    //        builder.Property(e => e.Src)
+    //        builder.Property(e => e.Category)
     //            .IsRequired()
-    //            .HasMaxLength(2000)
+    //            .HasMaxLength(100)
     //            ;
 
-    //        builder.Property(e => e.Alt)
+    //        builder.Property(e => e.Value)
+    //            .IsRequired()
     //            .HasMaxLength(200)
     //            ;
     //    }
