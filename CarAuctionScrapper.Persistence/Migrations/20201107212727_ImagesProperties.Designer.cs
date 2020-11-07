@@ -4,14 +4,16 @@ using CarAuctionScrapper.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarAuctionScrapper.Persistence.Migrations
 {
     [DbContext(typeof(CasDbContext))]
-    partial class CasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201107212727_ImagesProperties")]
+    partial class ImagesProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,12 +118,6 @@ namespace CarAuctionScrapper.Persistence.Migrations
                         {
                             b1.Property<string>("OfferUrl")
                                 .HasColumnType("nvarchar(450)");
-
-                            b1.Property<double>("Latitude")
-                                .HasColumnType("float");
-
-                            b1.Property<double>("Longitude")
-                                .HasColumnType("float");
 
                             b1.HasKey("OfferUrl");
 

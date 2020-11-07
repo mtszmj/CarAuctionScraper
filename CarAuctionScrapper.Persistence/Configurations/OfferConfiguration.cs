@@ -12,12 +12,62 @@ namespace CarAuctionScrapper.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Offer> builder)
         {
             builder.HasKey(e => e.Url);
-            builder.OwnsMany(e => e.Details);
-            builder.OwnsMany(e => e.Features);
-            builder.OwnsMany(e => e.Prices);
-            builder.OwnsMany(e => e.ImageThumbnails);
-            builder.OwnsMany(e => e.Images);
-            builder.OwnsOne(e => e.Location);
+            builder.OwnsMany(e => e.Details, details =>
+            {
+                details.Property(d => d.Category)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    ;
+
+                details.Property(d => d.Value)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    ;
+            });
+
+            builder.OwnsMany(e => e.Features, feature =>
+            {
+                feature.Property(f => f.Name)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    ;
+            });
+
+            builder.OwnsMany(e => e.Prices, prices =>
+            {
+                prices.Property(p => p.Value);
+                prices.Property(p => p.Date);
+            });
+
+            builder.OwnsMany(e => e.ImageThumbnails, images =>
+            {
+                images.Property(e => e.Src)
+                    .IsRequired()
+                    .HasMaxLength(2000)
+                    ;
+
+                images.Property(e => e.Alt)
+                    .HasMaxLength(200)
+                    ;
+            });
+
+            builder.OwnsMany(e => e.Images, images =>
+            {
+                images.Property(e => e.Src)
+                    .IsRequired()
+                    .HasMaxLength(2000)
+                    ;
+
+                images.Property(e => e.Alt)
+                    .HasMaxLength(200)
+                    ;
+            });
+
+            builder.OwnsOne(e => e.Location, location =>
+            {
+                location.Property(l => l.Latitude);
+                location.Property(l => l.Longitude);
+            });
         }
     }
 }
