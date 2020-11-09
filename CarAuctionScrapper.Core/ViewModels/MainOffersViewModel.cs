@@ -17,17 +17,15 @@ namespace CarAuctionScrapper.Core.ViewModels
         private readonly IWebpageService _webpageService;
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
-        private readonly ICasRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MainOffersViewModel(IWebpageService webpageService, IBrowserService browserService, IMvxNavigationService navigationService, ICasRepository repository)
+        public MainOffersViewModel(IWebpageService webpageService, IBrowserService browserService, IMvxNavigationService navigationService, IUnitOfWork unitOfWork)
         {
             _webpageService = webpageService;
             _browserService = browserService;
             _navigationService = navigationService;
-            _repository = repository;
+            _unitOfWork = unitOfWork;
             Offers = new MvxObservableCollection<OfferViewModel>();
-
-            _repository.Count();
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
             NavigateToOfferViewCommand = new MvxAsyncCommand(NavigateToOfferView);
@@ -36,6 +34,7 @@ namespace CarAuctionScrapper.Core.ViewModels
 
         private MvxObservableCollection<OfferViewModel> _offers;
         private string _url;
+        private bool IsInitialized { get; set; }
 
         public MvxObservableCollection<OfferViewModel> Offers
         {
@@ -70,6 +69,19 @@ namespace CarAuctionScrapper.Core.ViewModels
         public IMvxAsyncCommand UpdatePricesCommand { get; private set; }
         public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
 
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            if (!IsInitialized)
+            {
+                //var offers = await Task.Run(() => _unitOfWork.OfferRepository.GetAll()).ConfigureAwait(false);
+                var offers = _unitOfWork.OfferRepository.GetAll();
+                Offers.AddRange(offers.Select(x => new OfferViewModel(_browserService, _navigationService) { Offer = x }));
+                await UpdateCommonFeatures();
+                IsInitialized = true;
+            }
+        }
+
         private async Task GetDataFromWebpage()
         {
             var url = Url;
@@ -85,6 +97,39 @@ namespace CarAuctionScrapper.Core.ViewModels
             Offers.Add(offerVm);
             Url = null;
 
+            await UpdateCommonFeatures();
+            //if (Offers.Count > 1)
+            //{
+            //    var featuresCounters = new Dictionary<Feature, int>();
+            //    foreach (var vm in Offers)
+            //    {
+            //        foreach (var feature in vm.Offer.Features)
+            //        {
+            //            if (featuresCounters.ContainsKey(feature))
+            //                featuresCounters[feature]++;
+            //            else featuresCounters[feature] = 1;
+            //        }
+            //    }
+
+            //    var featuresContainedByAll = featuresCounters.Where(x => x.Value == Offers.Count)
+            //                                                 .Select(x => x.Key)
+            //                                                 .OrderBy(x => x)
+            //                                                 .ToList();
+            //    foreach (var vm in Offers)
+            //    {
+            //        vm.CommonFeatures = featuresContainedByAll;
+            //    }
+
+            //    await RaisePropertyChanged(() => CommonFeatures);
+            //    UpdatePricesCommand?.RaiseCanExecuteChanged();
+            //}
+
+            await _unitOfWork.OfferRepository.Add(offer);
+            await _unitOfWork.Save();
+        }
+
+        private async Task UpdateCommonFeatures()
+        {
             if (Offers.Count > 1)
             {
                 var featuresCounters = new Dictionary<Feature, int>();
@@ -95,7 +140,7 @@ namespace CarAuctionScrapper.Core.ViewModels
                         if (featuresCounters.ContainsKey(feature))
                             featuresCounters[feature]++;
                         else featuresCounters[feature] = 1;
-                    }    
+                    }
                 }
 
                 var featuresContainedByAll = featuresCounters.Where(x => x.Value == Offers.Count)
@@ -120,7 +165,7 @@ namespace CarAuctionScrapper.Core.ViewModels
 
         private async Task UpdatePrices()
         {
-            foreach(var offerVm in Offers)
+            foreach (var offerVm in Offers)
             {
                 try
                 {
@@ -128,7 +173,7 @@ namespace CarAuctionScrapper.Core.ViewModels
                     var price = _webpageService.ConverterService.ConvertPrice(html);
                     offerVm.Offer.AddPrice(price);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     continue; //TODO
                 }

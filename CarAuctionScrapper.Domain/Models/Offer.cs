@@ -41,15 +41,16 @@ namespace CarAuctionScrapper.Domain.Models
             AddPrice(price);
         }
 
-        public string Url { get; set; }
-        public IList<Detail> Details { get; set; }
-        public IList<Feature> Features { get; set; }
-        public string Description { get; set; }
-        public IList<Price> Prices { get; set; }
+        public int Id { get; private set; }
+        public string Url { get; private set; }
+        public IList<Detail> Details { get; private set; }
+        public IList<Feature> Features { get; private set; }
+        public string Description { get; private set; }
+        public IList<Price> Prices { get; private set; }
         public Price CurrentPrice => Prices.OrderBy(x => x, Values.Price.ByDateComparer()).LastOrDefault();
-        public IList<ThumbnailImageUrl> ImageThumbnails { get; set; }
-        public IList<FullImageUrl> Images { get; set; }
-        public Location Location { get; set; }
+        public IList<ThumbnailImageUrl> ImageThumbnails { get; private set; }
+        public IList<FullImageUrl> Images { get; private set; }
+        public Location Location { get; private set; }
 
         public void AddPrice(Price price)
         {

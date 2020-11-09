@@ -17,7 +17,8 @@ namespace CarAuctionScrapper.Persistence
             var connection = Configuration.GetConnectionString("DataConnection");
             Mvx.IoCProvider.RegisterSingleton(() => new CasDbContext(
                 new DbContextOptionsBuilder().UseSqlServer(connection).Options));
-            Mvx.IoCProvider.RegisterType<ICasRepository, CasRepository>();
+            Mvx.IoCProvider.RegisterType<IOfferRepository, OfferRepository>();
+            Mvx.IoCProvider.RegisterType<IUnitOfWork, UnitOfWork>();
         }
 
         public void PrepareConfiguration()

@@ -11,7 +11,7 @@ namespace CarAuctionScrapper.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Offer> builder)
         {
-            builder.HasKey(e => e.Url);
+            builder.HasKey(e => e.Id);
             builder.OwnsMany(e => e.Details, details =>
             {
                 details.Property(d => d.Category)
