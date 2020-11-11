@@ -43,6 +43,8 @@ namespace CarAuctionScrapper.Core.ViewModels
         }
 
         private OfferViewModel _selectedOffer;
+        private string _infoText;
+
         public OfferViewModel SelectedOffer
         {
             get => _selectedOffer;
@@ -65,6 +67,12 @@ namespace CarAuctionScrapper.Core.ViewModels
             }
         }
 
+        public string InfoText
+        {
+            get => _infoText;
+            set => SetProperty(ref _infoText, value);
+        }
+
         public IMvxAsyncCommand GetDataFromWebpageCommand { get; private set; }
         public IMvxAsyncCommand UpdatePricesCommand { get; private set; }
         public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
@@ -74,11 +82,13 @@ namespace CarAuctionScrapper.Core.ViewModels
             await base.Initialize();
             if (!IsInitialized)
             {
-                //var offers = await Task.Run(() => _unitOfWork.OfferRepository.GetAll()).ConfigureAwait(false);
                 var offers = _unitOfWork.OfferRepository.GetAll();
-                Offers.AddRange(offers.Select(x => new OfferViewModel(_browserService, _navigationService) { Offer = x }));
+                Offers.AddRange(offers.Select(x => new OfferViewModel(_browserService, _navigationService, x) ));
                 await UpdateCommonFeatures();
                 IsInitialized = true;
+
+                if (offers.Count > 0)
+                    InfoText = "Wczytano oferty";
             }
         }
 
@@ -90,7 +100,7 @@ namespace CarAuctionScrapper.Core.ViewModels
             if (offer is null)
                 return;
 
-            var offerVm = new OfferViewModel(_browserService, _navigationService) { Offer = offer };
+            var offerVm = new OfferViewModel(_browserService, _navigationService, offer);
             if (Offers.Any(x => x?.Offer?.Url == url))
                 return;
 
@@ -98,34 +108,10 @@ namespace CarAuctionScrapper.Core.ViewModels
             Url = null;
 
             await UpdateCommonFeatures();
-            //if (Offers.Count > 1)
-            //{
-            //    var featuresCounters = new Dictionary<Feature, int>();
-            //    foreach (var vm in Offers)
-            //    {
-            //        foreach (var feature in vm.Offer.Features)
-            //        {
-            //            if (featuresCounters.ContainsKey(feature))
-            //                featuresCounters[feature]++;
-            //            else featuresCounters[feature] = 1;
-            //        }
-            //    }
-
-            //    var featuresContainedByAll = featuresCounters.Where(x => x.Value == Offers.Count)
-            //                                                 .Select(x => x.Key)
-            //                                                 .OrderBy(x => x)
-            //                                                 .ToList();
-            //    foreach (var vm in Offers)
-            //    {
-            //        vm.CommonFeatures = featuresContainedByAll;
-            //    }
-
-            //    await RaisePropertyChanged(() => CommonFeatures);
-            //    UpdatePricesCommand?.RaiseCanExecuteChanged();
-            //}
-
             await _unitOfWork.OfferRepository.Add(offer);
             await _unitOfWork.Save();
+
+            InfoText = "Pobrano ofertę ze strony www";
         }
 
         private async Task UpdateCommonFeatures()
@@ -178,6 +164,9 @@ namespace CarAuctionScrapper.Core.ViewModels
                     continue; //TODO
                 }
             }
+
+            await _unitOfWork.Save();
+            InfoText = "Zaktualizowano ceny";
         }
 
         private bool CanUpdatePrices()

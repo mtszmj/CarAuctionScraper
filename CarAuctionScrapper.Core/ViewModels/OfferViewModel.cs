@@ -17,20 +17,23 @@ namespace CarAuctionScrapper.Core.ViewModels
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
 
-        public OfferViewModel(IBrowserService browserService, IMvxNavigationService navigationService)
+        public OfferViewModel(IBrowserService browserService, IMvxNavigationService navigationService, Offer offer)
         {
             NavigateToUrlCommand = new MvxAsyncCommand(NavigateToUrl);
             GoBackCommand = new MvxAsyncCommand(GoBack);
             _browserService = browserService;
             _navigationService = navigationService;
+            _offer = offer;
+            _uri = new Uri(offer.ImageThumbnails?.OrderBy(x => x.Src)?.FirstOrDefault().Src ?? string.Empty);
         }
 
         private Offer _offer;
+        private Uri _uri;
 
         public Offer Offer
         {
             get => _offer;
-            set => SetProperty(ref _offer, value, async () => await RaiseAllPropertiesChanged());
+            //set => SetProperty(ref _offer, value, async () => await RaiseAllPropertiesChanged());
         }
 
         public string this[string detail]
@@ -50,8 +53,12 @@ namespace CarAuctionScrapper.Core.ViewModels
 
         public List<Feature> DistinctFeatures => Offer.Features.Except(CommonFeatures ?? Enumerable.Empty<Feature>()).ToList();
 
-        public Uri ImageThumbnail => Offer?.ImageThumbnails?.FirstOrDefault()?.Src is null
-            ? null : new Uri(Offer?.ImageThumbnails?.FirstOrDefault()?.Src);
+        public Uri ImageThumbnail
+        {
+            get => _uri;
+        }
+
+        public bool ImageExists => ImageThumbnail != null;
 
         public string ShortDescription
         {

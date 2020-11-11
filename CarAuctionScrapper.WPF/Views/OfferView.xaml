@@ -16,6 +16,7 @@
         <converters:OfferToDateTimeFormatterConverter x:Key="OfferToDateTimeFormatterConverter"/>
         <converters:OfferToCurrencyFormatterConverter x:Key="OfferToCurrencyFormatterConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:ImageConverter x:Key="ImageConverter" DecodePixelHeight="200"/>
     </views:MvxWpfView.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -60,7 +61,7 @@
                     <DataTemplate>
                         <Border BorderBrush="Gray" BorderThickness="0.5">
                             <StackPanel>
-                                <Image Source="{Binding Src}" Height="200" Margin="5"/>
+                                <Image Source="{Binding Src, Converter={StaticResource ImageConverter}}" Height="200" Margin="5"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
