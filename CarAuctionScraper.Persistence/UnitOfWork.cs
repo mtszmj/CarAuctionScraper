@@ -1,4 +1,4 @@
-﻿using CarAuctionScraper.Domain.Interfaces;
+﻿using CarAuctionScraper.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

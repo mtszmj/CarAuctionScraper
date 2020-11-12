@@ -1,6 +1,4 @@
-﻿using CarAuctionScraper.Core.DI;
-using CarAuctionScraper.Core.Services;
-using CarAuctionScraper.Domain.Interfaces;
+﻿using CarAuctionScraper.Application.Interfaces;
 using CarAuctionScraper.Domain.Values;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -9,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarAuctionScraper.Application.Interfaces.Services;
+using CarAuctionScraper.Core.Args;
 
 namespace CarAuctionScraper.Core.ViewModels
 {
@@ -163,6 +163,7 @@ namespace CarAuctionScraper.Core.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    var msg = ex.Message;
                     continue; //TODO
                 }
             }

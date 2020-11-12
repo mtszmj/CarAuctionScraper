@@ -1,11 +1,9 @@
-﻿using CarAuctionScraper.Core.DI;
-using CarAuctionScraper.Core.Services;
+﻿using CarAuctionScraper.Application.Interfaces.Services;
+using CarAuctionScraper.Application.Services;
+using CarAuctionScraper.Core.DI;
 using FluentAssertions;
 using MvvmCross.IoC;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarAuctionScraper.Core.UnitTests.DI._Setup
 {

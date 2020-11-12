@@ -1,4 +1,4 @@
-﻿using CarAuctionScraper.Domain.Interfaces;
+﻿using CarAuctionScraper.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MvvmCross;

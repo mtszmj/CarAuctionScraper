@@ -1,4 +1,5 @@
-﻿using CarAuctionScraper.Core.Services;
+﻿using CarAuctionScraper.Application.Interfaces.Services;
+using CarAuctionScraper.Application.Services;
 using MvvmCross.IoC;
 using System.Runtime.CompilerServices;
 
