@@ -12,9 +12,9 @@ namespace CarAuctionScraper.Persistence
         public CasDbContext CreateDbContext(string[] args)
         {
             PrepareConfiguration();
-            var connection = Configuration.GetConnectionString("DataConnection");
+            var connection = Configuration.GetConnectionString("SqliteDataConnection");
             return new CasDbContext(
-                new DbContextOptionsBuilder().UseSqlServer(connection).Options);
+                new DbContextOptionsBuilder().UseSqlite(connection).Options);
         }
 
         public void PrepareConfiguration()

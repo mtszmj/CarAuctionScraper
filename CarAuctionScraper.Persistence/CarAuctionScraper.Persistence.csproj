@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201112205917_InitialCreateSqlite.cs" />
+    <Compile Remove="Migrations\20201112205917_InitialCreateSqlite.Designer.cs" />
+    <Compile Remove="Migrations\20201112213521_OwnsManyValueObjectHasKey.cs" />
+    <Compile Remove="Migrations\20201112213521_OwnsManyValueObjectHasKey.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.10" />
     <PackageReference Include="MvvmCross" Version="7.1.2" />
@@ -13,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarAuctionScraper.Application\CarAuctionScraper.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

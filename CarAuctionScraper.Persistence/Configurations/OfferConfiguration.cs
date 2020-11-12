@@ -1,6 +1,7 @@
 ﻿using CarAuctionScraper.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,8 @@ namespace CarAuctionScraper.Persistence.Configurations
                     .IsRequired()
                     .HasMaxLength(200)
                     ;
+
+                details.HasKey("Id");
             });
 
             builder.OwnsMany(e => e.Features, feature =>
@@ -31,12 +34,16 @@ namespace CarAuctionScraper.Persistence.Configurations
                     .IsRequired()
                     .HasMaxLength(100)
                     ;
+
+                feature.HasKey("Id");
             });
 
             builder.OwnsMany(e => e.Prices, prices =>
             {
                 prices.Property(p => p.Value);
                 prices.Property(p => p.Date);
+
+                prices.HasKey("Id");
             });
 
             builder.OwnsMany(e => e.ImageThumbnails, images =>
@@ -49,6 +56,8 @@ namespace CarAuctionScraper.Persistence.Configurations
                 images.Property(e => e.Alt)
                     .HasMaxLength(200)
                     ;
+
+                images.HasKey("Id");
             });
 
             builder.OwnsMany(e => e.Images, images =>
@@ -61,6 +70,8 @@ namespace CarAuctionScraper.Persistence.Configurations
                 images.Property(e => e.Alt)
                     .HasMaxLength(200)
                     ;
+
+                images.HasKey("Id");
             });
 
             builder.OwnsOne(e => e.Location, location =>
