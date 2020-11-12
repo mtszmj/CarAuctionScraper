@@ -30,6 +30,7 @@ namespace CarAuctionScraper.Core.ViewModels
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
             NavigateToOfferViewCommand = new MvxAsyncCommand(NavigateToOfferView);
             UpdatePricesCommand = new MvxAsyncCommand(UpdatePrices, CanUpdatePrices);
+            DeleteCommand = new MvxAsyncCommand(DeleteOffer, CanDeleteOffer);
         }
 
         private MvxObservableCollection<OfferViewModel> _offers;
@@ -76,6 +77,7 @@ namespace CarAuctionScraper.Core.ViewModels
         public IMvxAsyncCommand GetDataFromWebpageCommand { get; private set; }
         public IMvxAsyncCommand UpdatePricesCommand { get; private set; }
         public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
+        public IMvxAsyncCommand DeleteCommand { get; private set; }
 
         public override async Task Initialize()
         {
@@ -172,6 +174,20 @@ namespace CarAuctionScraper.Core.ViewModels
         private bool CanUpdatePrices()
         {
             return Offers.Count > 0;
+        }
+
+        private async Task DeleteOffer()
+        {
+            var selected = SelectedOffer;
+            SelectedOffer = null;
+            Offers.Remove(selected);
+            _unitOfWork.OfferRepository.Remove(selected.Offer);
+            await _unitOfWork.Save();
+        }
+
+        private bool CanDeleteOffer()
+        {
+            return SelectedOffer != null;
         }
 
         private async Task NavigateToOfferView()

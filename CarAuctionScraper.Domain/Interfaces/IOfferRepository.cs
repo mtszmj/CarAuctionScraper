@@ -9,6 +9,7 @@ namespace CarAuctionScraper.Domain.Interfaces
     {
         int Count();
         Task Add(Offer offer, CancellationToken token = default);
+        void Remove(Offer offer);
         List<Offer> GetAll();
     }
 }

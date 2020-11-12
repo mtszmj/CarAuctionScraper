@@ -31,5 +31,10 @@ namespace CarAuctionScraper.Persistence
         {
             return _dbContext.Offers.Count();
         }
+
+        public void Remove(Offer offer)
+        {
+            _dbContext.Remove(offer);
+        }
     }
 }
