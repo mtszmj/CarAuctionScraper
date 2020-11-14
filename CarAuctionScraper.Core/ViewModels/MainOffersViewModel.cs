@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarAuctionScraper.Application.Interfaces.Services;
 using CarAuctionScraper.Core.Args;
+using MaterialDesignThemes.Wpf;
 
 namespace CarAuctionScraper.Core.ViewModels
 {
@@ -18,13 +19,25 @@ namespace CarAuctionScraper.Core.ViewModels
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IUnitOfWork _unitOfWork;
+        private MvxObservableCollection<OfferViewModel> _offers;
+        private OfferViewModel _selectedOffer;
+        private string _url;
+        private string _infoText;
+        private bool _isInitialized;
 
-        public MainOffersViewModel(IWebpageService webpageService, IBrowserService browserService, IMvxNavigationService navigationService, IUnitOfWork unitOfWork)
+        public MainOffersViewModel(
+            IWebpageService webpageService, 
+            IBrowserService browserService, 
+            IMvxNavigationService navigationService, 
+            IUnitOfWork unitOfWork
+            //ISnackbarMessageQueue snackbarMessageQueue
+            )
         {
             _webpageService = webpageService;
             _browserService = browserService;
             _navigationService = navigationService;
             _unitOfWork = unitOfWork;
+            //SnackbarMessageQueue = snackbarMessageQueue;
             Offers = new MvxObservableCollection<OfferViewModel>();
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
@@ -33,18 +46,13 @@ namespace CarAuctionScraper.Core.ViewModels
             DeleteCommand = new MvxAsyncCommand(DeleteOffer, CanDeleteOffer);
         }
 
-        private MvxObservableCollection<OfferViewModel> _offers;
-        private string _url;
-        private bool IsInitialized { get; set; }
+        //public ISnackbarMessageQueue SnackbarMessageQueue { get; }
 
         public MvxObservableCollection<OfferViewModel> Offers
         {
             get => _offers;
             set => SetProperty(ref _offers, value);
         }
-
-        private OfferViewModel _selectedOffer;
-        private string _infoText;
 
         public OfferViewModel SelectedOffer
         {
@@ -58,6 +66,16 @@ namespace CarAuctionScraper.Core.ViewModels
             set => SetProperty(ref _url, value, () => GetDataFromWebpageCommand?.RaiseCanExecuteChanged());
         }
 
+        public string InfoText
+        {
+            get => _infoText;
+            set
+            {
+                SetProperty(ref _infoText, value);
+                //SnackbarMessageQueue.Enqueue(value);
+            }
+        }
+
         public List<Feature> CommonFeatures
         {
             get
@@ -68,26 +86,20 @@ namespace CarAuctionScraper.Core.ViewModels
             }
         }
 
-        public string InfoText
-        {
-            get => _infoText;
-            set => SetProperty(ref _infoText, value);
-        }
-
         public IMvxAsyncCommand GetDataFromWebpageCommand { get; private set; }
         public IMvxAsyncCommand UpdatePricesCommand { get; private set; }
-        public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
         public IMvxAsyncCommand DeleteCommand { get; private set; }
+        public IMvxAsyncCommand NavigateToOfferViewCommand { get; private set; }
 
         public override async Task Initialize()
         {
             await base.Initialize();
-            if (!IsInitialized)
+            if (!_isInitialized)
             {
                 var offers = _unitOfWork.OfferRepository.GetAll();
                 Offers.AddRange(offers.Select(x => new OfferViewModel(_browserService, _navigationService, x) ));
                 await UpdateCommonFeatures();
-                IsInitialized = true;
+                _isInitialized = true;
 
                 if (offers.Count > 0)
                     InfoText = "Wczytano oferty";

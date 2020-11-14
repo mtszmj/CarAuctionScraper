@@ -1,5 +1,6 @@
 ﻿using CarAuctionScraper.Application.Interfaces.Services;
 using CarAuctionScraper.Application.Services;
+using MaterialDesignThemes.Wpf;
 using MvvmCross.IoC;
 using System.Runtime.CompilerServices;
 
