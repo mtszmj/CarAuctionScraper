@@ -46,6 +46,8 @@ namespace CarAuctionScraper.Core.ViewModels
             get => _offer;
         }
 
+        public List<Feature> FeaturesSorted => Offer.Features.OrderBy(x => x.Name).ToList();
+
         public List<Feature> CommonFeatures
         {
             get => _commonFeatures;
