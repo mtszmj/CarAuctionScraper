@@ -2,6 +2,7 @@
 using CarAuctionScraper.Application.Services;
 using CarAuctionScraper.Core.DI;
 using FluentAssertions;
+using MaterialDesignThemes.Wpf;
 using MvvmCross.IoC;
 using NUnit.Framework;
 
@@ -25,6 +26,8 @@ namespace CarAuctionScraper.Core.UnitTests.DI._Setup
             ioc.Resolve<IWebpageConverterService>().Should().BeOfType<WebpageConverterService>();
             ioc.Resolve<IWebpageService>().Should().BeOfType<WebpageService>();
             ioc.Resolve<IDateTime>().Should().BeOfType<DateTimeService>();
+
+            ioc.Resolve<ISnackbarMessageQueue>().Should().BeOfType<SnackbarMessageQueue>();
 
             ioc.Resolve<IBrowserService>().Should().BeOfType<BrowserService>();
         }

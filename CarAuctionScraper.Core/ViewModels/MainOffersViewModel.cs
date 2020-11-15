@@ -29,24 +29,27 @@ namespace CarAuctionScraper.Core.ViewModels
             IWebpageService webpageService, 
             IBrowserService browserService, 
             IMvxNavigationService navigationService, 
-            IUnitOfWork unitOfWork
-            //ISnackbarMessageQueue snackbarMessageQueue
+            IUnitOfWork unitOfWork,
+            ISnackbarMessageQueue snackbarMessageQueue
             )
         {
             _webpageService = webpageService;
             _browserService = browserService;
             _navigationService = navigationService;
             _unitOfWork = unitOfWork;
-            //SnackbarMessageQueue = snackbarMessageQueue;
+            SnackbarMessageQueue = snackbarMessageQueue;
+
             Offers = new MvxObservableCollection<OfferViewModel>();
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
             NavigateToOfferViewCommand = new MvxAsyncCommand(NavigateToOfferView);
             UpdatePricesCommand = new MvxAsyncCommand(UpdatePrices, CanUpdatePrices);
             DeleteCommand = new MvxAsyncCommand(DeleteOffer, CanDeleteOffer);
+
+            InfoText = "Uruchomiono";
         }
 
-        //public ISnackbarMessageQueue SnackbarMessageQueue { get; }
+        public ISnackbarMessageQueue SnackbarMessageQueue { get; }
 
         public MvxObservableCollection<OfferViewModel> Offers
         {
@@ -72,7 +75,7 @@ namespace CarAuctionScraper.Core.ViewModels
             set
             {
                 SetProperty(ref _infoText, value);
-                //SnackbarMessageQueue.Enqueue(value);
+                SnackbarMessageQueue.Enqueue(value);
             }
         }
 

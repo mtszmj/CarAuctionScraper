@@ -20,14 +20,14 @@
         <converters:DistanceToKmConverter x:Key="DistanceToKmConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterCustom"/>
     </views:MvxWpfView.Resources>
-    
+
 
     <materialDesign:DrawerHost
-          Margin="2"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          BorderThickness="2"
-          BorderBrush="{DynamicResource MaterialDesignDivider}"
+        Margin="2"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        BorderThickness="2"
+        BorderBrush="{DynamicResource MaterialDesignDivider}"
         IsTopDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}"
         >
 
@@ -44,12 +44,11 @@
                         IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <!--<TextBlock Text="Link do oferty:"/>-->
                     <materialDesign:PackIcon Margin="5 0 5 0" Kind="Web" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                     <TextBox
                         Margin="5 -4 0 0"
                         x:Name="NameTextBox"
-                        materialDesign:HintAssist.Hint="Link do oferty" MinWidth="300" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">  
+                        materialDesign:HintAssist.Hint="Link do oferty" MinWidth="300" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
                         <TextBox.Text>
                             <Binding
                                 Path="Url"
@@ -89,416 +88,285 @@
         </materialDesign:DrawerHost.TopDrawerContent>
 
         <DockPanel>
-            
-        
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
 
 
-        <materialDesign:ColorZone Grid.Row="0"
+                <materialDesign:ColorZone Grid.Row="0"
               Mode="PrimaryLight"
               Padding="16">
-            <StackPanel Orientation="Horizontal">
-                <ToggleButton x:Name="MenuToggleButton"
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="MenuToggleButton"
                     Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
                     CommandParameter="{x:Static Dock.Top}"/>
-                <TextBlock
+                        <TextBlock
                                 VerticalAlignment="Center"
                                 Margin="16 0 0 0">
                                 Car Auction Scraper
-                </TextBlock>
-            </StackPanel>
-        </materialDesign:ColorZone>
-        <!--<materialDesign:Card Grid.Row="0" Margin="10" Padding="10">
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:ColorZone>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Link do oferty:"/>
-                <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"/>
-                <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" Kind="Web" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
-                <TextBox
-                x:Name="NameTextBox"
-                materialDesign:HintAssist.Hint="Name">
-                    <TextBox.Text>
-                        <Binding
-                        Path="Url"
-                        UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <validators:UrlValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <Button Command="{Binding GetDataFromWebpageCommand}" Content="Get offer"/>
-                <Button Command="{Binding UpdatePricesCommand}" Content="Update prices"/>
-            </StackPanel>
-        </materialDesign:Card>-->
+                <materialDesign:Card Grid.Row="1" Margin="10" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Cechy wspólne:"/>
 
-        <materialDesign:Card Grid.Row="1" Margin="10" Padding="10">
-            <StackPanel>
-                <TextBlock Text="Cechy wspólne:"/>
-
-                <Separator
+                        <Separator
                     Style="{StaticResource MaterialDesignLightSeparator}" />
-                <ItemsControl ItemsSource="{Binding CommonFeatures}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding CommonFeatures}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
                                     <materialDesign:Chip Content="{Binding Name}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
 
-                            <!--<Border Background="#880033cc" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
-                                <Label Content="{Binding Name}" Foreground="White" FontSize="10" FontWeight="Medium"/>
-                            </Border>-->
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Row="2" Margin="10 0 10 10" Padding="10">
 
-        </materialDesign:Card>
-        <materialDesign:Card Grid.Row="2" Margin="10 0 10 10" Padding="10">
-
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Offers}" SelectedItem="{Binding SelectedOffer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"
+                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Offers}" SelectedItem="{Binding SelectedOffer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"
                       VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" VirtualizingPanel.ScrollUnit="Pixel"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                   >
-                <!--<DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>-->
-                <!--<DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>-->
-                <!--<DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    -->
-                <!--<Setter Property="BorderBrush" Value="Red"/>-->
-                <!--
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </DataGrid.RowStyle>-->
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <!--<Setter Property="HorizontalAlignment" Value="Stretch"/>-->
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.CellStyle>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Delete" Command="{Binding DeleteCommand}"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-                <DataGrid.Columns>
+                  
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete" Command="{Binding DeleteCommand}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
 
-                    <DataGridTemplateColumn Header="" MaxWidth="250">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Image Grid.Row="0" Margin="0 5 0 0" Visibility="{Binding ImageExists, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            <DataGridTemplateColumn Header="" MaxWidth="240">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Margin="0 5 0 0" Visibility="{Binding ImageExists, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Source="{Binding ImageThumbnail, Converter={StaticResource ImageConverter}}"
                                    />
-                                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
 
-                                        <Button Margin="3 5 3 5" Height="30" Width="30"
+                                                <Button Margin="3 5 3 5" Height="30" Width="30"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Otwórz szczegóły"
                                         Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWpfView}}, Path= DataContext.NavigateToOfferViewCommand}"
                                         >
-                                            <materialDesign:PackIcon
+                                                    <materialDesign:PackIcon
                                             Kind="EllipsisHorizontal"
                                             Height="16"
                                             Width="16" />
-                                        </Button>
+                                                </Button>
 
-                                        <Button Margin="3 5 3 5" Height="30" Width="30"
+                                                <Button Margin="3 5 3 5" Height="30" Width="30"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="Idź do strony www"
                                         Command="{Binding NavigateToUrlCommand}"
                                 >
-                                            <materialDesign:PackIcon
+                                                    <materialDesign:PackIcon
                                     Kind="Web"
                                     Height="16"
                                     Width="16" />
-                                        </Button>
+                                                </Button>
 
-                                        <Button Margin="3 5 3 5" Height="30" Width="30"
+                                                <Button Margin="3 5 3 5" Height="30" Width="30"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Odległość"
                                                 >
-                                            <Grid>
-                                                <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                    <Grid>
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center"
                                                 Kind="MapMarkerRadius"
                                                 Height="12"
                                                 Width="12" />
-                                                <TextBlock Text="{Binding Distance}" FontSize="7" Margin="0 12 0 0" HorizontalAlignment="Center"/>
-                                            </Grid>
-                                        </Button>
+                                                        <TextBlock Text="{Binding Distance}" FontSize="7" Margin="0 12 0 0" HorizontalAlignment="Center"/>
+                                                    </Grid>
+                                                </Button>
 
-                                        <Button Margin="3 5 3 5"  Height="30" Width="30"
+                                                <Button Margin="3 5 3 5"  Height="30" Width="30"
                                             Visibility="{Binding IsPolish, Converter={StaticResource BooleanToVisibilityConverterCustom}}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Kraj pochodzenia: Polska"
                                                 >
-                                            <TextBlock Text="PL" FontSize="12"/>
-                                        </Button>
-                                        <Button Margin="3 5 3 5" Height="30" Width="30"
+                                                    <TextBlock Text="PL" FontSize="12"/>
+                                                </Button>
+                                                <Button Margin="3 5 3 5" Height="30" Width="30"
                                             Visibility="{Binding IsPolish, Converter={StaticResource BooleanToVisibilityConverterCustom}, ConverterParameter=true}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                             Background="Gray"
                                             BorderBrush="Gray"
                                         ToolTip="Kraj pochodzenia: nie z Polski"
                                                 >
-                                            <TextBlock Text="PL" FontSize="12"/>
-                                        </Button>
+                                                    <TextBlock Text="PL" FontSize="12"/>
+                                                </Button>
 
-                                        <Button Margin="3 5 3 5"  Height="30" Width="30"
+                                                <Button Margin="3 5 3 5"  Height="30" Width="30"
                                             Visibility="{Binding IsNotCrashed, Converter={StaticResource BooleanToVisibilityConverterCustom}}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                         ToolTip="Bezwypadkowy: tak"
                                                 >
-                                            <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                    <materialDesign:PackIcon HorizontalAlignment="Center"
                                                 Kind="CarMultiple"
                                                 Height="16"
                                                 Width="16" />
-                                        </Button>
-                                        <Button Margin="3 5 3 5" Height="30" Width="30"
+                                                </Button>
+                                                <Button Margin="3 5 3 5" Height="30" Width="30"
                                             Visibility="{Binding IsNotCrashed, Converter={StaticResource BooleanToVisibilityConverterCustom}, ConverterParameter=true}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                             Background="Gray"
                                             BorderBrush="Gray"
                                         ToolTip="Bezwypadkowy: nie"
                                                 >
-                                            <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                    <materialDesign:PackIcon HorizontalAlignment="Center"
                                                 Kind="CarMultiple"
                                                 Height="16"
                                                 Width="16" />
-                                        </Button>
-                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
 
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Cena" SortMemberPath="Offer.CurrentPrice.Value">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Cena" SortMemberPath="Offer.CurrentPrice.Value">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding Offer.CurrentPrice.Value}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock VerticalAlignment="Center" Text="{Binding Offer.CurrentPrice.Value}"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Oferta&#x0a;od" SortMemberPath="[Oferta od]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding [Oferta od]}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Oferta&#x0a;od" SortMemberPath="[Oferta od]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding [Oferta od]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Marka" SortMemberPath="[Marka pojazdu]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding [Marka pojazdu]}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Marka" SortMemberPath="[Marka pojazdu]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding [Marka pojazdu]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Model" SortMemberPath="[Model pojazdu]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding [Model pojazdu]}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Model" SortMemberPath="[Model pojazdu]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding [Model pojazdu]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Rocznik" SortMemberPath="[Rok produkcji]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Rocznik" SortMemberPath="[Rok produkcji]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding [Rok produkcji]}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock VerticalAlignment="Center" Text="{Binding [Rok produkcji]}"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Przebieg" SortMemberPath="[Przebieg]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Przebieg" SortMemberPath="[Przebieg]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding [Przebieg]}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock VerticalAlignment="Center" Text="{Binding [Przebieg]}"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Pojemność" SortMemberPath="[Pojemność skokowa]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Pojemność" SortMemberPath="[Pojemność skokowa]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding [Pojemność skokowa]}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock VerticalAlignment="Center" Text="{Binding [Pojemność skokowa]}"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Moc" SortMemberPath="[Moc]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Moc" SortMemberPath="[Moc]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding [Moc]}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock VerticalAlignment="Center" Text="{Binding [Moc]}"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <!--<DataGridTemplateColumn Header="Kraj" SortMemberPath="[Kraj pochodzenia]">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding [Kraj pochodzenia]}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                            <DataGridTemplateColumn Header="Pierwszy&#x0a;właściciel" SortMemberPath="[Pierwszy właściciel]">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding [Pierwszy właściciel]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Pierwszy&#x0a;właściciel" SortMemberPath="[Pierwszy właściciel]">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding [Pierwszy właściciel]}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-                    <!--<DataGridTemplateColumn Header="Bezwy-&#x0a;padkowy" SortMemberPath="[Bezwypadkowy]">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding [Bezwypadkowy]}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
 
                             <DataGridTemplateColumn Header="Cechy" MaxWidth="500">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding DistinctFeatures}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel HorizontalAlignment="Stretch"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <!--<Border Background="{Binding Path=Name, Converter={StaticResource StringToBrushConverter}}" BorderThickness="1" BorderBrush="Transparent" CornerRadius="8" Padding="1" Margin="0.5">
-                                            <Label Content="{Binding Name}" Foreground="#c0000000"  FontSize="10" FontWeight="SemiBold"/>
-                                        </Border>-->
-                                            <materialDesign:Chip Content="{Binding Name}" Background="{Binding Path=Name, Converter={StaticResource StringToBrushConverter}}" Margin="0 3 3 0" FontSize="10"  FontWeight="SemiBold"
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding DistinctFeatures}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel HorizontalAlignment="Stretch"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <materialDesign:Chip Content="{Binding Name}" Background="{Binding Path=Name, Converter={StaticResource StringToBrushConverter}}" Margin="0 3 3 0" FontSize="10"  FontWeight="SemiBold"
                                                              Height="28" Foreground="#c0000000"
                                                              />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <!--<DataGridTemplateColumn Header="Opis" MaxWidth="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding ShortDescription}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
-
-                    <DataGridTemplateColumn Header="Odległość" SortMemberPath="Distance">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataGridTemplateColumn Header="Odległość" SortMemberPath="Distance">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <materialDesign:Chip Content="{Binding Distance, Converter={StaticResource DistanceToKmConverter}}" Background="{DynamicResource PrimaryHueLightBrush}" Margin="2"/>
-                                <!--<TextBlock Text="{Binding Distance}" VerticalAlignment="Center"/>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <!--<DataGridTemplateColumn Header="Link">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock VerticalAlignment="Center">
-                                    <Hyperlink NavigateUri="{Binding Offer.Url}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="RequestNavigate">
-                                                <i:InvokeCommandAction Command="{Binding NavigateToUrlCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <TextBlock Text="www" TextWrapping="Wrap"/>
-                                    </Hyperlink>
-                                    <TextBlock.ToolTip>
-                                        <TextBlock Text="{Binding Offer.Url}"/>
-                                    </TextBlock.ToolTip>
-                                </TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </materialDesign:Card>
 
-                    <!--<DataGridTemplateColumn Header="Szczegóły">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            -->
-                    <!--<Button Content="Otwórz" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWpfView}}, Path= DataContext.NavigateToOfferViewCommand}"/>-->
-                    <!--
-                            <Button
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                ToolTip="Otwórz szczegóły"
-                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MvxWpfView}}, Path= DataContext.NavigateToOfferViewCommand}"
-                                >
-                                <materialDesign:PackIcon
-                                    Kind="Details"
-                                    Height="24"
-                                    Width="24" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
-
-
-                </DataGrid.Columns>
-            </DataGrid>
-        </materialDesign:Card>
-        <Border Grid.Row="3" BorderThickness="0.25" BorderBrush="Gray">
-                    <StackPanel>
-            <TextBlock TextAlignment="Center"
-                       d:Text="Przykładowy tekst komunikatu" 
-                       Text="{Binding InfoText}" 
-                       />
-                        <materialDesign:Snackbar Message="{Binding SnackbarMessageQueue}" />
-                    </StackPanel>
-                </Border>
-    </Grid>
+                <materialDesign:Snackbar Grid.Row="2" VerticalAlignment="Bottom"
+                            MessageQueue="{Binding SnackbarMessageQueue}"
+                            />
+            </Grid>
         </DockPanel>
     </materialDesign:DrawerHost>
 
