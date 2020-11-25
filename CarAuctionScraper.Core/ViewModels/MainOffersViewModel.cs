@@ -136,7 +136,7 @@ namespace CarAuctionScraper.Core.ViewModels
             if (Offers.Count > 1)
             {
                 var featuresCounters = new Dictionary<Feature, int>();
-                foreach (var vm in Offers)
+                foreach (var vm in Offers.Where(x => !x.IsFinished))
                 {
                     foreach (var feature in vm.Offer.Features)
                     {
@@ -173,8 +173,13 @@ namespace CarAuctionScraper.Core.ViewModels
                 try
                 {
                     var html = await _webpageService.ReaderService.ReadWebpage(offerVm.Offer.Url);
-                    var price = _webpageService.ConverterService.ConvertPrice(html);
-                    offerVm.Offer.AddPrice(price);
+                    if (html == null)
+                        offerVm.Offer.CloseOffer();
+                    else
+                    {
+                        var price = _webpageService.ConverterService.ConvertPrice(html);
+                        offerVm.Offer.AddPrice(price);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -183,6 +188,7 @@ namespace CarAuctionScraper.Core.ViewModels
                 }
             }
 
+            await RaisePropertyChanged("");
             await _unitOfWork.Save();
             InfoText = "Zaktualizowano ceny";
         }

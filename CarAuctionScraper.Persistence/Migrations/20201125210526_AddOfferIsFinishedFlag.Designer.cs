@@ -3,14 +3,16 @@ using System;
 using CarAuctionScraper.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarAuctionScraper.Persistence.Migrations
 {
     [DbContext(typeof(CasDbContext))]
-    partial class CasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201125210526_AddOfferIsFinishedFlag")]
+    partial class AddOfferIsFinishedFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

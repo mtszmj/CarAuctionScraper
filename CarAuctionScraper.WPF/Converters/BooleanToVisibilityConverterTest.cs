@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace CarAuctionScraper.WPF.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverterTest : IValueConverter
     {
         Visibility NotVisible { get; set; } = Visibility.Collapsed;
 
@@ -21,8 +21,6 @@ namespace CarAuctionScraper.WPF.Converters
 
             if (!v)
                 throw new ArgumentException("Value is not bool");
-
-            v = (bool)value;
 
             if (v && !inversed)
                 return Visibility.Visible;

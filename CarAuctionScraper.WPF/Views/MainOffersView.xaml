@@ -19,6 +19,7 @@
         <converters:ImageConverter x:Key="ImageConverter" DecodePixelWidth="200"/>
         <converters:DistanceToKmConverter x:Key="DistanceToKmConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterCustom"/>
+        <converters:BooleanToVisibilityConverterTest x:Key="BooleanToVisibilityConverterCustom2"/>
     </views:MvxWpfView.Resources>
 
 
@@ -71,18 +72,6 @@
                             Width="24" 
                         />
                     </Button>
-                    <Button
-                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                        Margin="5 0 5 0"
-                        ToolTip="Odśwież wszystkie oferty"
-                        Command="{Binding UpdatePricesCommand}"
-                        >
-                        <materialDesign:PackIcon
-                            Kind="Refresh"
-                            Height="24"
-                            Width="24" 
-                        />
-                    </Button>
                 </StackPanel>
             </DockPanel>
         </materialDesign:DrawerHost.TopDrawerContent>
@@ -102,17 +91,39 @@
                 <materialDesign:ColorZone Grid.Row="0"
               Mode="PrimaryLight"
               Padding="16">
-                    <StackPanel Orientation="Horizontal">
-                        <ToggleButton x:Name="MenuToggleButton"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                            Orientation="Horizontal">
+                            <ToggleButton x:Name="MenuToggleButton"
                     Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
                     CommandParameter="{x:Static Dock.Top}"/>
-                        <TextBlock
+                            <TextBlock
                                 VerticalAlignment="Center"
                                 Margin="16 0 0 0">
                                 Car Auction Scraper
-                        </TextBlock>
-                    </StackPanel>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Button
+                        Grid.Column="1"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        Margin="5 0 5 0"
+                        ToolTip="Odśwież wszystkie oferty"
+                        Command="{Binding UpdatePricesCommand}"
+                        >
+                            <materialDesign:PackIcon
+                            Kind="Refresh"
+                            Height="24"
+                            Width="24" 
+                        />
+                        </Button>
+                    </Grid>
                 </materialDesign:ColorZone>
 
                 <materialDesign:Card Grid.Row="1" Margin="10" Padding="10">
@@ -144,7 +155,7 @@
                   materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                   >
-                  
+
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Triggers>
@@ -188,10 +199,13 @@
                                                 </Button>
 
                                                 <Button Margin="3 5 3 5" Height="30" Width="30"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                ToolTip="Idź do strony www"
-                                        Command="{Binding NavigateToUrlCommand}"
-                                >
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                                    ToolTip="Idź do strony www"
+                                                    Command="{Binding NavigateToUrlCommand}"
+                                                    Visibility="{Binding IsFinished, 
+                                                        Converter={StaticResource BooleanToVisibilityConverterCustom}, 
+                                                        ConverterParameter=true}"
+                                                >
                                                     <materialDesign:PackIcon
                                     Kind="Web"
                                     Height="16"

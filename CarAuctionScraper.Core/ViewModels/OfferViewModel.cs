@@ -75,6 +75,7 @@ namespace CarAuctionScraper.Core.ViewModels
 
         public bool IsNotCrashed => this["Bezwypadkowy"]?.ToUpperInvariant()?.Equals("TAK") ?? false;
         public bool IsPolish => this["Kraj pochodzenia"]?.ToUpperInvariant()?.Equals("POLSKA") ?? false;
+        public bool IsFinished => Offer?.IsFinished ?? false;
         public double? Distance => Offer?.Location?.Distance(HomeLocation);
 
         public IMvxAsyncCommand NavigateToUrlCommand { get; private set; }

@@ -51,6 +51,7 @@ namespace CarAuctionScraper.Domain.Models
         public IList<ThumbnailImageUrl> ImageThumbnails { get; private set; }
         public IList<FullImageUrl> Images { get; private set; }
         public Location Location { get; private set; }
+        public bool IsFinished { get; private set; }
 
         public void AddPrice(Price price)
         {
@@ -58,6 +59,11 @@ namespace CarAuctionScraper.Domain.Models
                 return; 
             
             Prices.Add(price);
+        }
+
+        public void CloseOffer()
+        {
+            IsFinished = true;
         }
     }
 }
