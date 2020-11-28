@@ -1,8 +1,10 @@
 ﻿using CarAuctionScraper.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
+using System;
 using System.IO;
 
 namespace CarAuctionScraper.Persistence
@@ -19,7 +21,8 @@ namespace CarAuctionScraper.Persistence
             Mvx.IoCProvider.RegisterSingleton(() => new CasDbContext(
                 new DbContextOptionsBuilder()
                     //.UseSqlServer(sqlServerConnection).Options
-                    .UseSqlite(sqliteConnection).Options
+                    .UseSqlite(sqliteConnection)
+                    .Options
                     )
             );
             Mvx.IoCProvider.RegisterType<IOfferRepository, OfferRepository>();

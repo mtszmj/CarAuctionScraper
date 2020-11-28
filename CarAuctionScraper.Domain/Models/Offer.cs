@@ -65,5 +65,30 @@ namespace CarAuctionScraper.Domain.Models
         {
             IsFinished = true;
         }
+
+        public void UpdateValues(Offer offer)
+        {
+            Details.Clear();
+            foreach (var detail in offer.Details)
+                Details.Add(detail);
+
+            Features.Clear();
+            foreach (var feature in offer.Features)
+                Features.Add(feature);
+
+            Description = offer.Description;
+
+            ImageThumbnails.Clear();
+            foreach (var thumb in offer.ImageThumbnails)
+                ImageThumbnails.Add(thumb);
+
+            Images.Clear();
+            foreach (var image in offer.Images)
+                Images.Add(image);
+
+            Location = offer.Location;
+
+            IsFinished = offer.IsFinished;
+        }
     }
 }

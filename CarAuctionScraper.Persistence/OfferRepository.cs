@@ -1,5 +1,6 @@
 ﻿using CarAuctionScraper.Application.Interfaces;
 using CarAuctionScraper.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,7 +24,14 @@ namespace CarAuctionScraper.Persistence
 
         public List<Offer> GetAll()
         {
-            return _dbContext.Offers.ToList();
+            return _dbContext.Offers
+                //.Include(x => x.Details)
+                //.Include(x => x.Features)
+                //.Include(x => x.Prices)
+                //.Include(x => x.ImageThumbnails)
+                //.Include(x => x.Images)
+                //.Include(x => x.Location)
+                .ToList();
         }
 
         public int Count()

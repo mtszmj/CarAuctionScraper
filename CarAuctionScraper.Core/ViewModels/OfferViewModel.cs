@@ -9,25 +9,36 @@ using System.Threading.Tasks;
 using CarAuctionScraper.Domain.Values;
 using CarAuctionScraper.Application.Interfaces.Services;
 using CarAuctionScraper.Core.Args;
+using CarAuctionScraper.Application.Interfaces;
 
 namespace CarAuctionScraper.Core.ViewModels
 {
     public class OfferViewModel : MvxViewModel<OfferViewNavigationArgs>
     {
+        private readonly IWebpageService _webpageService;
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
-
+        private readonly IUnitOfWork _unitOfWork;
         private Offer _offer;
         private Uri _uri;
         private Location HomeLocation = new Location(50.2657025, 19.0249066);
         private List<Feature> _commonFeatures;
         
-        public OfferViewModel(IBrowserService browserService, IMvxNavigationService navigationService, Offer offer)
+        public OfferViewModel(
+            IWebpageService webpageService, 
+            IBrowserService browserService, 
+            IMvxNavigationService navigationService,
+            IUnitOfWork unitOfWork,
+            Offer offer
+        )
         {
             NavigateToUrlCommand = new MvxAsyncCommand(NavigateToUrl);
             GoBackCommand = new MvxAsyncCommand(GoBack);
+            UpdateAllCommand = new MvxAsyncCommand(UpdateAll);
+            _webpageService = webpageService;
             _browserService = browserService;
             _navigationService = navigationService;
+            _unitOfWork = unitOfWork;
             _offer = offer;
             _uri = new Uri(offer.ImageThumbnails?.OrderBy(x => x.Src)?.FirstOrDefault().Src ?? string.Empty);
         }
@@ -80,6 +91,7 @@ namespace CarAuctionScraper.Core.ViewModels
 
         public IMvxAsyncCommand NavigateToUrlCommand { get; private set; }
         public IMvxAsyncCommand GoBackCommand { get; private set; }
+        public IMvxAsyncCommand UpdateAllCommand { get; private set; }
         IMvxViewModel ReturnViewModel { get; set; }
 
         public override void Prepare(OfferViewNavigationArgs parameter)
@@ -96,6 +108,27 @@ namespace CarAuctionScraper.Core.ViewModels
                 return;
 
             await _browserService.OpenWebsiteAsync(Offer.Url);
+        }
+
+        public async Task UpdateAll()
+        {
+            var html = await _webpageService.ReaderService.ReadWebpage(Offer.Url);
+            if(html is null)
+            {
+                Offer.CloseOffer();
+                return;
+            }
+
+            var offer = _webpageService.ConverterService.Convert(html, Offer.Url);
+            if (offer is null)
+            {
+                Offer.CloseOffer();
+                return;
+            }
+
+            Offer.UpdateValues(offer);
+            await _unitOfWork.Save();
+            await RaiseAllPropertiesChanged();
         }
 
         public async Task GoBack()

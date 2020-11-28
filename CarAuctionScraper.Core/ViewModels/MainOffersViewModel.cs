@@ -100,7 +100,7 @@ namespace CarAuctionScraper.Core.ViewModels
             if (!_isInitialized)
             {
                 var offers = _unitOfWork.OfferRepository.GetAll();
-                Offers.AddRange(offers.Select(x => new OfferViewModel(_browserService, _navigationService, x) ));
+                Offers.AddRange(offers.Select(x => new OfferViewModel(_webpageService, _browserService, _navigationService, _unitOfWork, x) ));
                 await UpdateCommonFeatures();
                 _isInitialized = true;
 
@@ -113,11 +113,14 @@ namespace CarAuctionScraper.Core.ViewModels
         {
             var url = Url;
             var html = await _webpageService.ReaderService.ReadWebpage(url);
+            if (html is null)
+                return;
+
             var offer = _webpageService.ConverterService.Convert(html, url);
             if (offer is null)
                 return;
 
-            var offerVm = new OfferViewModel(_browserService, _navigationService, offer);
+            var offerVm = new OfferViewModel(_webpageService, _browserService, _navigationService, _unitOfWork, offer);
             if (Offers.Any(x => x?.Offer?.Url == url))
                 return;
 
@@ -183,8 +186,7 @@ namespace CarAuctionScraper.Core.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
-                    continue; //TODO
+                    InfoText = ex.Message;
                 }
             }
 
@@ -215,6 +217,11 @@ namespace CarAuctionScraper.Core.ViewModels
         private async Task NavigateToOfferView()
         {
             await _navigationService.Navigate(SelectedOffer, new OfferViewNavigationArgs { ReturnViewModel = this });
+        }
+
+        public override void ViewAppeared()
+        {
+            Task.Run(RaiseAllPropertiesChanged);
         }
     }
 }
