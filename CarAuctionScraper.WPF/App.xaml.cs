@@ -8,7 +8,7 @@ namespace CarAuctionScraper.WPF
     {
         protected override void RegisterSetup()
         {
-            this.RegisterSetupType<MvxWpfSetup<Core.App>>();
+            this.RegisterSetupType<CustomSetup<Core.App>>();
         }
     }
 }

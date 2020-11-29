@@ -19,7 +19,6 @@ namespace CarAuctionScraper.Core.DI
             ioc.RegisterType<ISnackbarMessageQueue, SnackbarMessageQueue>();
 
             ioc.RegisterSingleton<IBrowserService>(new BrowserService());
-            
         }
     }
 }

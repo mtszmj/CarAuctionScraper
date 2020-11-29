@@ -14,7 +14,11 @@ namespace CarAuctionScraper.WPF.Converters
         {
             Uri uri;
             if (value is string valueStr)
+            {
+                if (valueStr is null)
+                    return null;
                 uri = new Uri(valueStr);
+            }
             else if (value is Uri valueUri)
                 uri = valueUri;
             else uri = new Uri("");

@@ -18,6 +18,7 @@ namespace CarAuctionScraper.Persistence
             PrepareConfiguration();
             var sqlServerConnection = Configuration.GetConnectionString("SqlServerDataConnection");
             var sqliteConnection = Configuration.GetConnectionString("SqliteDataConnection");
+
             Mvx.IoCProvider.RegisterSingleton(() => new CasDbContext(
                 new DbContextOptionsBuilder()
                     //.UseSqlServer(sqlServerConnection).Options
@@ -36,6 +37,24 @@ namespace CarAuctionScraper.Persistence
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
+        }
+
+        public class CustomLoggerFactory : ILoggerFactory
+        {
+            public void AddProvider(ILoggerProvider provider)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ILogger CreateLogger(string categoryName)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Dispose()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace CarAuctionScraper.Core.ViewModels
             _navigationService = navigationService;
             _unitOfWork = unitOfWork;
             _offer = offer;
-            _uri = new Uri(offer.ImageThumbnails?.OrderBy(x => x.Src)?.FirstOrDefault().Src ?? string.Empty);
+            _uri = new Uri(offer.ImageThumbnails?.OrderBy(x => x.Src)?.FirstOrDefault()?.Src ?? string.Empty);
         }
 
         public string this[string detail]
@@ -88,6 +88,7 @@ namespace CarAuctionScraper.Core.ViewModels
         public bool IsPolish => this["Kraj pochodzenia"]?.ToUpperInvariant()?.Equals("POLSKA") ?? false;
         public bool IsFinished => Offer?.IsFinished ?? false;
         public double? Distance => Offer?.Location?.Distance(HomeLocation);
+        public IEnumerable<FullImageUrl> ImagesVm => Offer.Images;
 
         public IMvxAsyncCommand NavigateToUrlCommand { get; private set; }
         public IMvxAsyncCommand GoBackCommand { get; private set; }
@@ -129,6 +130,7 @@ namespace CarAuctionScraper.Core.ViewModels
             Offer.UpdateValues(offer);
             await _unitOfWork.Save();
             await RaiseAllPropertiesChanged();
+            await RaisePropertyChanged(() => Offer);
         }
 
         public async Task GoBack()

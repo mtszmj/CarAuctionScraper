@@ -25,8 +25,8 @@
 
     <materialDesign:DrawerHost
         Margin="2"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
         BorderThickness="2"
         BorderBrush="{DynamicResource MaterialDesignDivider}"
         IsTopDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}"

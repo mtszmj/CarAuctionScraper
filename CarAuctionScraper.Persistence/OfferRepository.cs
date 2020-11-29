@@ -24,13 +24,14 @@ namespace CarAuctionScraper.Persistence
 
         public List<Offer> GetAll()
         {
+            //return Enumerable.Empty<Offer>().ToList();
             return _dbContext.Offers
-                //.Include(x => x.Details)
-                //.Include(x => x.Features)
-                //.Include(x => x.Prices)
-                //.Include(x => x.ImageThumbnails)
-                //.Include(x => x.Images)
-                //.Include(x => x.Location)
+                .Include(x => x.Details)
+                .Include(x => x.Features)
+                .Include(x => x.Prices)
+                .Include(x => x.ImageThumbnails)
+                .Include(x => x.Images)
+                .Include(x => x.Location)
                 .ToList();
         }
 

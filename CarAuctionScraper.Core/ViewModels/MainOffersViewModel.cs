@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CarAuctionScraper.Application.Interfaces.Services;
 using CarAuctionScraper.Core.Args;
 using MaterialDesignThemes.Wpf;
+using MvvmCross.Logging;
 
 namespace CarAuctionScraper.Core.ViewModels
 {
@@ -19,6 +20,7 @@ namespace CarAuctionScraper.Core.ViewModels
         private readonly IBrowserService _browserService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMvxLog _logger;
         private MvxObservableCollection<OfferViewModel> _offers;
         private OfferViewModel _selectedOffer;
         private string _url;
@@ -30,7 +32,8 @@ namespace CarAuctionScraper.Core.ViewModels
             IBrowserService browserService, 
             IMvxNavigationService navigationService, 
             IUnitOfWork unitOfWork,
-            ISnackbarMessageQueue snackbarMessageQueue
+            ISnackbarMessageQueue snackbarMessageQueue,
+            IMvxLog logger
             )
         {
             _webpageService = webpageService;
@@ -38,7 +41,7 @@ namespace CarAuctionScraper.Core.ViewModels
             _navigationService = navigationService;
             _unitOfWork = unitOfWork;
             SnackbarMessageQueue = snackbarMessageQueue;
-
+            _logger = logger;
             Offers = new MvxObservableCollection<OfferViewModel>();
 
             GetDataFromWebpageCommand = new MvxAsyncCommand(GetDataFromWebpage, CanGetDataFromWebpage);
@@ -47,6 +50,7 @@ namespace CarAuctionScraper.Core.ViewModels
             DeleteCommand = new MvxAsyncCommand(DeleteOffer, CanDeleteOffer);
 
             InfoText = "Uruchomiono";
+            _logger.Debug("test uruchomiono MainOffersViewModel");
         }
 
         public ISnackbarMessageQueue SnackbarMessageQueue { get; }
@@ -107,6 +111,8 @@ namespace CarAuctionScraper.Core.ViewModels
                 if (offers.Count > 0)
                     InfoText = "Wczytano oferty";
             }
+            //else
+            //    await UpdateCommonFeatures();
         }
 
         private async Task GetDataFromWebpage()
@@ -139,7 +145,7 @@ namespace CarAuctionScraper.Core.ViewModels
             if (Offers.Count > 1)
             {
                 var featuresCounters = new Dictionary<Feature, int>();
-                foreach (var vm in Offers.Where(x => !x.IsFinished))
+                foreach (var vm in Offers)
                 {
                     foreach (var feature in vm.Offer.Features)
                     {
@@ -221,7 +227,7 @@ namespace CarAuctionScraper.Core.ViewModels
 
         public override void ViewAppeared()
         {
-            Task.Run(RaiseAllPropertiesChanged);
+            RaiseAllPropertiesChanged().ConfigureAwait(true).GetAwaiter().GetResult();
         }
     }
 }
