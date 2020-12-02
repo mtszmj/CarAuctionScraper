@@ -69,7 +69,7 @@ namespace CarAuctionScraper.Core.ViewModels
 
         public Uri ImageThumbnail => _uri;
 
-        public bool ImageExists => ImageThumbnail != null;
+        public bool ImageExists => ImageThumbnail != null && !IsFinished;
 
         public string ShortDescription
         {

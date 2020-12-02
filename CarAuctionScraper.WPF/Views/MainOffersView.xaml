@@ -177,13 +177,14 @@
                             <DataGridTemplateColumn Header="" MaxWidth="240">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid>
+                                        <Grid VerticalAlignment="Center">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
                                             <Image Grid.Row="0" Margin="0 5 0 0" Visibility="{Binding ImageExists, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Source="{Binding ImageThumbnail, Converter={StaticResource ImageConverter}}"
+                                                   Width="175"
                                    />
                                             <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
 
