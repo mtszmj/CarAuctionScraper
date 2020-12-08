@@ -7,6 +7,7 @@ show chart with price change.
 ![Gif](/docs/CarAuctionScraper.gif)
 
 ### Technology used
+- NET5.0
 - WPF with MVVM approach
 - MvvmCross framework
 - Clean Architecture approach (different projects for domain, application, MvvmCross core and WPF UI)
