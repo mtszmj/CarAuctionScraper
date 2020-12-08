@@ -4,7 +4,7 @@ Application takes data from webpage with car auctions and shows it
 in a table in easy to compare way. The data is stored in order to 
 show chart with price change.
 
-![Gif](/docs/CarAuctionScrapper.gif)
+![Gif](/docs/CarAuctionScraper.gif)
 
 ### Technology used
 - WPF with MVVM approach
