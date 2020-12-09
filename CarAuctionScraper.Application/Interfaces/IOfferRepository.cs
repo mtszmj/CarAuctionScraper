@@ -10,6 +10,6 @@ namespace CarAuctionScraper.Application.Interfaces
         int Count();
         Task Add(Offer offer, CancellationToken token = default);
         void Remove(Offer offer);
-        List<Offer> GetAll();
+        Task<List<Offer>> GetAll();
     }
 }

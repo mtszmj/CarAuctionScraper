@@ -103,7 +103,7 @@ namespace CarAuctionScraper.Core.ViewModels
             await base.Initialize();
             if (!_isInitialized)
             {
-                var offers = _unitOfWork.OfferRepository.GetAll();
+                var offers = await _unitOfWork.OfferRepository.GetAll();
                 Offers.AddRange(offers.Select(x => new OfferViewModel(_webpageService, _browserService, _navigationService, _unitOfWork, x) ));
                 await UpdateCommonFeatures();
                 _isInitialized = true;

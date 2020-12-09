@@ -22,7 +22,7 @@ namespace CarAuctionScraper.Persistence
             await _dbContext.AddAsync(offer, token);
         }
 
-        public List<Offer> GetAll()
+        public Task<List<Offer>> GetAll()
         {
             return _dbContext.Offers
                 .Include(x => x.Details)
@@ -32,7 +32,7 @@ namespace CarAuctionScraper.Persistence
                 .Include(x => x.Images)
                 .Include(x => x.Location)
                 .AsSplitQuery()
-                .ToList();
+                .ToListAsync();
         }
 
         public int Count()
