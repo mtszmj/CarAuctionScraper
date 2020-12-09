@@ -24,7 +24,6 @@ namespace CarAuctionScraper.Persistence
 
         public List<Offer> GetAll()
         {
-            //return Enumerable.Empty<Offer>().ToList();
             return _dbContext.Offers
                 .Include(x => x.Details)
                 .Include(x => x.Features)
@@ -32,6 +31,7 @@ namespace CarAuctionScraper.Persistence
                 .Include(x => x.ImageThumbnails)
                 .Include(x => x.Images)
                 .Include(x => x.Location)
+                .AsSplitQuery()
                 .ToList();
         }
 

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
+using MvvmCross.Logging;
 using System;
 using System.IO;
 
@@ -19,15 +20,17 @@ namespace CarAuctionScraper.Persistence
             var sqlServerConnection = Configuration.GetConnectionString("SqlServerDataConnection");
             var sqliteConnection = Configuration.GetConnectionString("SqliteDataConnection");
 
-            Mvx.IoCProvider.RegisterSingleton(() => new CasDbContext(
+            ioc.RegisterSingleton(() => new CasDbContext(
                 new DbContextOptionsBuilder()
                     //.UseSqlServer(sqlServerConnection).Options
                     .UseSqlite(sqliteConnection)
+                    .EnableSensitiveDataLogging()
+                    .LogTo(msg => Mvx.IoCProvider.Resolve<IMvxLog>().Info(msg))
                     .Options
                     )
             );
-            Mvx.IoCProvider.RegisterType<IOfferRepository, OfferRepository>();
-            Mvx.IoCProvider.RegisterType<IUnitOfWork, UnitOfWork>();
+            ioc.RegisterType<IOfferRepository, OfferRepository>();
+            ioc.RegisterType<IUnitOfWork, UnitOfWork>();
         }
 
         public void PrepareConfiguration()
@@ -37,24 +40,6 @@ namespace CarAuctionScraper.Persistence
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
-        }
-
-        public class CustomLoggerFactory : ILoggerFactory
-        {
-            public void AddProvider(ILoggerProvider provider)
-            {
-                throw new NotImplementedException();
-            }
-
-            public ILogger CreateLogger(string categoryName)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Dispose()
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

@@ -43,13 +43,13 @@ namespace CarAuctionScraper.Domain.Models
 
         public int Id { get; private set; }
         public string Url { get; private set; }
-        public IList<Detail> Details { get; private set; }
-        public IList<Feature> Features { get; private set; }
+        public ICollection<Detail> Details { get; private set; }
+        public ICollection<Feature> Features { get; private set; }
         public string Description { get; private set; }
-        public IList<Price> Prices { get; private set; }
+        public ICollection<Price> Prices { get; private set; }
         public Price CurrentPrice => Prices.OrderBy(x => x, Values.Price.ByDateComparer()).LastOrDefault();
-        public IList<ThumbnailImageUrl> ImageThumbnails { get; private set; }
-        public IList<FullImageUrl> Images { get; private set; }
+        public ICollection<ThumbnailImageUrl> ImageThumbnails { get; private set; }
+        public ICollection<FullImageUrl> Images { get; private set; }
         public Location Location { get; private set; }
         public bool IsFinished { get; private set; }
 
